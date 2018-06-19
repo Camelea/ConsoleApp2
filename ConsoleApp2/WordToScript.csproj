@@ -62,11 +62,11 @@
     <Compile Include="Tables\ContrainteNonNulle.cs" />
     <Compile Include="Tables\ContrainteVerification.cs" />
     <Compile Include="EnumElements.cs" />
-    <Compile Include="Tables\EnumStyles.cs" />
+    <Compile Include="EnumStyles.cs" />
     <Compile Include="Tables\Index.cs" />
-    <Compile Include="Tables\ListeTable.cs" />
+    <Compile Include="ListeTable.cs" />
     <Compile Include="Node.cs" />
-    <Compile Include="Tables\NodeManager.cs" />
+    <Compile Include="NodeManager.cs" />
     <Compile Include="Tables\Sequence.cs" />
     <Compile Include="StringEnum.cs" />
     <Compile Include="Tables\Table.cs" />

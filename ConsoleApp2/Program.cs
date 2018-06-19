@@ -1,6 +1,7 @@
 ﻿using ConsoleApp2.Tables;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
 using System.Xml;
@@ -53,7 +54,12 @@ namespace ConsoleApp2
 			nsmgr.AddNamespace("mc: Ignorable", "w14 w15 w16se wp14");
 
 			var tables = Table.GetTables(doc, nsmgr);
-
+			List<Table> resultat = tables;
+			foreach (Table elem in resultat) {
+				Console.Write(elem.Nom);
+				Console.ReadKey();
+			}
+			
 			//ListeTable t = new ListeTable();
 			//t.NomTable(doc, nsmgr);
 		}
