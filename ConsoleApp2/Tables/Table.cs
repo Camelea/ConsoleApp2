@@ -21,7 +21,12 @@ namespace ConsoleApp2.Tables
 
 		}
 
-
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
 		public static List<Table> GetTables(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
 
@@ -43,6 +48,17 @@ namespace ConsoleApp2.Tables
 			return ListeTables2;
 			
 
+		}
+		/// <summary>
+		/// Retourne le nombre de tables dans la classe 
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
+		public static int NombreTables(XmlDocument doc, XmlNamespaceManager nsmgr)
+		{
+			int res = GetTables(doc, nsmgr).Count();
+			return res;
 		}
 
 	}

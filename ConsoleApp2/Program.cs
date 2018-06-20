@@ -1,4 +1,5 @@
-﻿using ConsoleApp2.Tables;
+﻿using ConsoleApp2.Classes;
+using ConsoleApp2.Tables;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -53,15 +54,47 @@ namespace ConsoleApp2
 			nsmgr.AddNamespace("wps", "http://schemas.microsoft.com/office/word/2010/wordprocessingShape");
 			nsmgr.AddNamespace("mc: Ignorable", "w14 w15 w16se wp14");
 
-			var tables = Table.GetTables(doc, nsmgr);
-			List<Table> resultat = tables;
-			foreach (Table elem in resultat) {
-				Console.Write(elem.Nom);
-				Console.ReadKey();
-			}
-			
+			var classes = Table.GetTables(doc, nsmgr);
+			var nombreTables = Table.NombreTables(doc, nsmgr);
+			Console.WriteLine(nombreTables);
+			Console.ReadKey();
+			//List<Table> resultat = tables;
+			//foreach (Table elem in resultat) {
+			//	Console.Write(elem.Nom);
+			//	Console.ReadKey();
+			//}
+
 			//ListeTable t = new ListeTable();
 			//t.NomTable(doc, nsmgr);
+
+
+			var cls = Classe.GetClasses(doc, nsmgr);
+			List<Classe> resultat = cls;
+			foreach (Classe elem in resultat)
+			{
+				Console.WriteLine(elem.Nom);
+				Console.ReadKey();
+			}
+
+			List<String> colonnes = new List<string>();
+			colonnes.Add("Nom");
+			colonnes.Add("Type");
+			colonnes.Add("Description");
+			colonnes.Add("Cle");
+			colonnes.Add("Number(18)");
+			colonnes.Add("Clé technique de lassociation entre la ligne et le kitBox.");
+			colonnes.Add("CleLigne");
+			colonnes.Add("Number(18)");
+			colonnes.Add("Clé unique de la ligne.");
+			Console.WriteLine(colonnes.Count);
+
+			var col = Colonne.ListeAColonnes(colonnes);
+			foreach (Colonne elem in col)
+			{
+				Console.WriteLine(elem.ToString());
+			}
+
+			Console.ReadKey();
 		}
 	}
 
