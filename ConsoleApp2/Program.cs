@@ -54,47 +54,69 @@ namespace ConsoleApp2
 			nsmgr.AddNamespace("wps", "http://schemas.microsoft.com/office/word/2010/wordprocessingShape");
 			nsmgr.AddNamespace("mc: Ignorable", "w14 w15 w16se wp14");
 
-			var classes = Table.GetTables(doc, nsmgr);
-			var nombreTables = Table.NombreTables(doc, nsmgr);
-			Console.WriteLine(nombreTables);
+			var tables = Table.Tables(doc, nsmgr);
 			Console.ReadKey();
-			//List<Table> resultat = tables;
-			//foreach (Table elem in resultat) {
-			//	Console.Write(elem.Nom);
-			//	Console.ReadKey();
-			//}
+			List<Table> resultat = tables;
+			foreach (Table elem in resultat)
+			{
+				Console.WriteLine("nouvelle table");
+				List<Colonne> cells = elem.Colonnes;
+				foreach (Colonne c in cells)
+				{
+					Console.WriteLine(c.ToString());
+
+				}
+
+
+
+				
+			}
+			Console.ReadKey();
 
 			//ListeTable t = new ListeTable();
 			//t.NomTable(doc, nsmgr);
 
 
-			var cls = Classe.GetClasses(doc, nsmgr);
-			List<Classe> resultat = cls;
-			foreach (Classe elem in resultat)
-			{
-				Console.WriteLine(elem.Nom);
-				Console.ReadKey();
-			}
+			//var cls = Classe.GetClasses(doc, nsmgr);
+			//List<Classe> resultat = cls;
+			//foreach (Classe elem in resultat)
+			//{
+			//	Console.WriteLine(elem.Nom);
+			//	Console.ReadKey();
+			//}
 
-			List<String> colonnes = new List<string>();
-			colonnes.Add("Nom");
-			colonnes.Add("Type");
-			colonnes.Add("Description");
-			colonnes.Add("Cle");
-			colonnes.Add("Number(18)");
-			colonnes.Add("Clé technique de lassociation entre la ligne et le kitBox.");
-			colonnes.Add("CleLigne");
-			colonnes.Add("Number(18)");
-			colonnes.Add("Clé unique de la ligne.");
-			Console.WriteLine(colonnes.Count);
+			//List<String> colonnes = new List<string>();
+			//colonnes.Add("Nom");
+			//colonnes.Add("Type");
+			//colonnes.Add("Description");
+			//colonnes.Add("Cle");
+			//colonnes.Add("Number(18)");
+			//colonnes.Add("Clé technique de lassociation entre la ligne et le kitBox.");
+			//colonnes.Add("CleLigne");
+			//colonnes.Add("Number(18)");
+			//colonnes.Add("Clé unique de la ligne.");
+			//Console.WriteLine(colonnes.Count);
 
-			var col = Colonne.ListeAColonnes(colonnes);
-			foreach (Colonne elem in col)
-			{
-				Console.WriteLine(elem.ToString());
-			}
+			//var col = Colonne.ListeAColonnes(colonnes);
+			//foreach (Colonne elem in col)
+			//{
+			//	Console.WriteLine(elem.ToString());
+			//}
 
-			Console.ReadKey();
+			//Console.ReadKey();
+
+			//var col2 = Colonne.GetColonnesTables(doc, nsmgr);
+			//foreach (List<Colonne> l in col2)
+			//{
+			//	foreach (Colonne c in l)
+			//	{
+			//		Console.WriteLine(c.ToString());
+			//	}
+
+
+			//}
+			//Console.ReadKey();
+
 		}
 	}
 

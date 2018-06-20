@@ -29,17 +29,18 @@ namespace ConsoleApp2.Tables
 		/// <param name="doc"></param>
 		/// <param name="nsmgr"></param>
 		/// <returns></returns>
-		public static List<List<string>> GetColonnesTables(XmlDocument doc, XmlNamespaceManager nsmgr)
+		public static List<List<Colonne>> GetColonnesTables(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
 			XmlNodeList nodeList2;
 			XmlElement root = doc.DocumentElement;
 			List<List<string>> ListeColonnesTables = new List<List<string>>();
+			List<List<Colonne>> ListeColonnesTables2 = new List<List<Colonne>>();
 
 
 			//nodeList2 = root.SelectNodes(" // w:p [ w:pPr / w:pStyle [@w:val='Heading2']] | // w:p  [ w:pPr / w:pStyle [@w:val='Heading2']] ", nsmgr);// 
 			int n = 1;
 			int x = 0;
-			for (int i = 1; i < Table.NombreTables(doc,nsmgr); i++)
+			for (int i = 1; i < Table.NombreTables(doc,nsmgr) +1; i++)
 
 			{
 				ListeColonnesTables.Add(new List<string>());
@@ -55,11 +56,11 @@ namespace ConsoleApp2.Tables
 					ListeColonnesTables[x].Add(isbn2.InnerText);
 
 				}
-
+				ListeColonnesTables2.Add(ListeAColonnes(ListeColonnesTables[x]));
 				n = n + 3;
 				x++;
 			}
-			return ListeColonnesTables;
+			return ListeColonnesTables2;
 		
 		}
 				

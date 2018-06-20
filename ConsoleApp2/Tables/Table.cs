@@ -13,7 +13,7 @@ namespace ConsoleApp2.Tables
 		public List<Colonne> Colonnes { get; set; }
 		//public List<Contrainte> Contraintes { get; set; }
 
-		public Table(string Nom)
+		public Table(string Nom, List<Colonne> Colonnes)
 		{
 			this.Nom = Nom;
 			this.Colonnes = Colonnes;
@@ -27,13 +27,13 @@ namespace ConsoleApp2.Tables
 		/// <param name="doc"></param>
 		/// <param name="nsmgr"></param>
 		/// <returns></returns>
-		public static List<Table> GetTables(XmlDocument doc, XmlNamespaceManager nsmgr)
+		public static List<string> NomsTables(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
 
 			XmlNodeList nodeList2;
 			XmlElement root = doc.DocumentElement;
 			List<string> ListeTables = new List<string>();
-			List<Table> ListeTables2 = new List<Table>();
+			List<string> ListeTables2 = new List<string>();
 			string xpath = @"//w:p [ w:pPr / w:pStyle [@w:val='Heading1']][1]
 				/following-sibling:: w:p[ w:pPr / w:pStyle [@w:val='Heading2']]
 				[count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] / preceding-sibling::w:p [ w:pPr / w:pStyle [@w:val='Heading2']])= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2]/preceding-sibling::w:p  [ w:pPr / w:pStyle [@w:val='Heading2']])]";
@@ -42,11 +42,11 @@ namespace ConsoleApp2.Tables
 
 			foreach (XmlNode isbn2 in nodeList2)
 			{
-				ListeTables2.Add(new Table(isbn2.InnerText));
+				ListeTables2.Add(isbn2.InnerText);
 			}
 
 			return ListeTables2;
-			
+
 
 		}
 		/// <summary>
@@ -57,9 +57,22 @@ namespace ConsoleApp2.Tables
 		/// <returns></returns>
 		public static int NombreTables(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
-			int res = GetTables(doc, nsmgr).Count();
+			int res = NomsTables(doc, nsmgr).Count();
 			return res;
 		}
 
+		public static List<Table> Tables(XmlDocument doc, XmlNamespaceManager nsmgr)
+		{
+			List<string> noms = NomsTables(doc, nsmgr);
+			List<List<Colonne>> colonnes = Colonne.GetColonnesTables(doc, nsmgr);
+			List<Table> tables = new List<Table>();
+			for (int i = 0; i < NombreTables(doc, nsmgr); i++)
+			{
+				tables.Add(new Table(noms[i], colonnes[i]));
+
+			}
+			return tables;
+
+		}
 	}
 }
