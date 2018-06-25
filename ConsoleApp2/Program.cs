@@ -19,8 +19,9 @@ namespace ConsoleApp2
 
 
 			XmlDocument doc = new XmlDocument();
-			//doc.Load("C:\\Users\\CameleaOUARKOUB\\Documents\\document.xml");
+			//doc.Load("C:\\Users\\CameleaOUARKOUB\\Pictures\\Exemple2.xml");
 			doc.Load("C:\\Users\\CameleaOUARKOUB\\Desktop\\document.xml");
+			
 
 
 			//Create an XmlNamespaceManager for resolving namespaces.
@@ -103,10 +104,10 @@ namespace ConsoleApp2
 
 			//Console.ReadKey();
 
-			var col2 = ContrainteNonNulle.GetContraintesNonNullesTables(doc, nsmgr);
-			foreach (List<ContrainteNonNulle> l in col2)
+			var col2 = Index.GetIndexTables(doc, nsmgr);
+			foreach (List<Index> l in col2)
 			{
-				foreach (ContrainteNonNulle c in l)
+				foreach (Index c in l)
 				{
 					Console.WriteLine(c.ToString());
 				}
