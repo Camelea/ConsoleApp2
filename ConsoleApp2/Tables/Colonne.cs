@@ -43,14 +43,14 @@ namespace ConsoleApp2.Tables
 			for (int i = 1; i < Table.NombreTables(doc,nsmgr) +1; i++)
 
 			{
+
 				ListeColonnesTables.Add(new List<string>());
+				string xpath = @"//w:p [ w:pPr / w:pStyle [@w:val='Heading1']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][" + n + "]/ following-sibling::w:tbl / w:tr /w:tc [count(. | //w:p [ w:pPr / w:pStyle [@w:val='Heading1']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][" + (n + 1) + "]/ preceding-sibling::w:tbl / w:tr /w:tc)= count(//w:p [ w:pPr / w:pStyle [@w:val='Heading1']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][" + (n + 1) + "]/preceding-sibling::w:tbl / w:tr /w:tc)]";
 
-				string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading3']][" + n + "]/ following-sibling::w:tbl / w:tr /w:tc [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading3']][" + (n + 1) + "]/ preceding-sibling::w:tbl / w:tr /w:tc)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading3']][" + (n + 1) + "]/preceding-sibling::w:tbl / w:tr /w:tc)]";
-
-				string xpath2 = @"//w:p [ w:pPr / w:pStyle [@w:val='Heading2']]/ preceding-sibling::w:p [ w:pPr / w:pStyle [@w:val='Heading3']] ";
+				
 				nodeList2 = root.SelectNodes(xpath, nsmgr);
 
-
+				
 				foreach (XmlNode isbn2 in nodeList2)
 				{
 					ListeColonnesTables[x].Add(isbn2.InnerText);

@@ -17,8 +17,9 @@ namespace ConsoleApp2
 		static void Main(string[] args)
 		{
 
-			
+
 			XmlDocument doc = new XmlDocument();
+			//doc.Load("C:\\Users\\CameleaOUARKOUB\\Documents\\document.xml");
 			doc.Load("C:\\Users\\CameleaOUARKOUB\\Desktop\\document.xml");
 
 
@@ -54,24 +55,21 @@ namespace ConsoleApp2
 			nsmgr.AddNamespace("wps", "http://schemas.microsoft.com/office/word/2010/wordprocessingShape");
 			nsmgr.AddNamespace("mc: Ignorable", "w14 w15 w16se wp14");
 
-			var tables = Table.Tables(doc, nsmgr);
-			Console.ReadKey();
-			List<Table> resultat = tables;
-			foreach (Table elem in resultat)
-			{
-				Console.WriteLine("nouvelle table");
-				List<Colonne> cells = elem.Colonnes;
-				foreach (Colonne c in cells)
-				{
-					Console.WriteLine(c.ToString());
+			//	var sequences = Sequence.GetSequencesTables(doc, nsmgr);
+			//	List<Sequence> resultat = sequences;
+			//	foreach (Sequence elem in resultat)
+			//	{
 
-				}
+
+			//			Console.WriteLine(elem.nom);
+
+			//		}
 
 
 
-				
-			}
-			Console.ReadKey();
+			//	Console.ReadKey();
+			//}
+
 
 			//ListeTable t = new ListeTable();
 			//t.NomTable(doc, nsmgr);
@@ -105,24 +103,25 @@ namespace ConsoleApp2
 
 			//Console.ReadKey();
 
-			//var col2 = Colonne.GetColonnesTables(doc, nsmgr);
-			//foreach (List<Colonne> l in col2)
-			//{
-			//	foreach (Colonne c in l)
-			//	{
-			//		Console.WriteLine(c.ToString());
-			//	}
+			var col2 = ClePrimaire.GetClesPrimairesTables(doc, nsmgr);
+			foreach (List<ClePrimaire> l in col2)
+			{
+				foreach (ClePrimaire c in l)
+				{
+					Console.WriteLine(c.ToString());
+				}
 
 
-			//}
-			//Console.ReadKey();
+				//}
+				//Console.ReadKey();
 
+			}
+			Console.ReadKey();
 		}
+
+
+
 	}
-
 }
-
-
-
 
 

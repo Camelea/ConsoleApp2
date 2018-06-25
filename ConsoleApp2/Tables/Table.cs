@@ -11,13 +11,13 @@ namespace ConsoleApp2.Tables
 	{
 		public String Nom { get; set; }
 		public List<Colonne> Colonnes { get; set; }
-		//public List<Contrainte> Contraintes { get; set; }
+		public Contrainte Contraintes { get; set; }
 
-		public Table(string Nom, List<Colonne> Colonnes)
+		public Table(string Nom, List<Colonne> Colonnes,Contrainte Contraintes)
 		{
 			this.Nom = Nom;
 			this.Colonnes = Colonnes;
-			//this.Contraintes = Contraintes;
+			this.Contraintes = Contraintes;
 
 		}
 
@@ -65,10 +65,12 @@ namespace ConsoleApp2.Tables
 		{
 			List<string> noms = NomsTables(doc, nsmgr);
 			List<List<Colonne>> colonnes = Colonne.GetColonnesTables(doc, nsmgr);
+			List<Contrainte> contraintes = Contrainte.Contraintes(doc, nsmgr);
 			List<Table> tables = new List<Table>();
+
 			for (int i = 0; i < NombreTables(doc, nsmgr); i++)
 			{
-				tables.Add(new Table(noms[i], colonnes[i]));
+				tables.Add(new Table(noms[i], colonnes[i],contraintes[i]));
 
 			}
 			return tables;
