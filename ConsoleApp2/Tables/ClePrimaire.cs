@@ -4,13 +4,14 @@ using System.Xml;
 
 namespace ConsoleApp2.Tables
 {
-	internal class ClePrimaire : Cle
+	internal class ClePrimaire 
 	{
 
-		protected string table;
+		public string nom;
+		public string colonne;
 
 
-		public ClePrimaire(string nom, string colonne) : base(nom, colonne)
+		public ClePrimaire(string nom, string colonne) 
 		{
 			this.nom = nom;
 			this.colonne = colonne;
@@ -18,7 +19,7 @@ namespace ConsoleApp2.Tables
 		}
 		public override string ToString()
 		{
-			return ("CONSTRAINT" + "\"" + this.nom + "\"" + "PIMARY KEY ( \" " + this.colonne + " \" REFERENCES \" "  + "(" + this.colonne + ")");
+			return ("CONSTRAINT " + "\"" + this.nom + "\"" + "PIMARY KEY ( \" " + this.colonne + " \" REFERENCES \" "  + "(" + this.colonne + ")");
 		}
 
 
@@ -54,9 +55,6 @@ namespace ConsoleApp2.Tables
 			return ListeColonnesTables2;
 
 		}
-
-
-
 
 
 		/// <summary>

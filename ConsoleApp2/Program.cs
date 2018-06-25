@@ -103,10 +103,10 @@ namespace ConsoleApp2
 
 			//Console.ReadKey();
 
-			var col2 = ClePrimaire.GetClesPrimairesTables(doc, nsmgr);
-			foreach (List<ClePrimaire> l in col2)
+			var col2 = ContrainteNonNulle.GetContraintesNonNullesTables(doc, nsmgr);
+			foreach (List<ContrainteNonNulle> l in col2)
 			{
-				foreach (ClePrimaire c in l)
+				foreach (ContrainteNonNulle c in l)
 				{
 					Console.WriteLine(c.ToString());
 				}
