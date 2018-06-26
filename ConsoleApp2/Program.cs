@@ -104,10 +104,10 @@ namespace ConsoleApp2
 
 			//Console.ReadKey();
 
-			var col2 = Index.GetIndexTables(doc, nsmgr);
-			foreach (List<Index> l in col2)
+			var col2 = CleEtrangere.GetClesEtrangeresTables(doc, nsmgr);
+			foreach (List<CleEtrangere> l in col2)
 			{
-				foreach (Index c in l)
+				foreach (CleEtrangere c in l)
 				{
 					Console.WriteLine(c.ToString());
 				}
