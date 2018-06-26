@@ -10,11 +10,11 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 namespace ConsoleApp2
 {
-	class Program
+	public class Program
 	{
 
 
-		static void Main(string[] args)
+		public static void Main(string[] args)
 		{
 
 
@@ -104,10 +104,10 @@ namespace ConsoleApp2
 
 			//Console.ReadKey();
 
-			var col2 = CleEtrangere.GetClesEtrangeresTables(doc, nsmgr);
-			foreach (List<CleEtrangere> l in col2)
+			var col2 = ContrainteDeVerification.GetClesEtrangeresTables(doc, nsmgr);
+			foreach (List<ContrainteDeVerification> l in col2)
 			{
-				foreach (CleEtrangere c in l)
+				foreach (ContrainteDeVerification c in l)
 				{
 					Console.WriteLine(c.ToString());
 				}

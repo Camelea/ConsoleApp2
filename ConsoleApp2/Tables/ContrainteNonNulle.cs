@@ -17,7 +17,7 @@ namespace ConsoleApp2.Tables
 		}
 		public override string ToString()
 		{
-			return (nom + " NOT NULL"); //temporaire à regkler plus tard 
+			return (nom + " NOT NULL"); //temporaire à regler plus tard 
 		}
 
 		public static List<List<ContrainteNonNulle>> GetContraintesNonNullesTables(XmlDocument doc, XmlNamespaceManager nsmgr)
