@@ -18,7 +18,7 @@ namespace ConsoleApp2.Tables
 			}
 			public override string ToString()
 			{
-				return (nom + colonne); //temporaire à regkler plus tard 
+				return (this.nom + " " + this.colonne); //temporaire à regkler plus tard 
 			}
 
 			public static List<List<Index>> GetIndexTables(XmlDocument doc, XmlNamespaceManager nsmgr)
@@ -37,7 +37,7 @@ namespace ConsoleApp2.Tables
 				{
 
 					ListeColonnesTables.Add(new List<string>());
-					string xpath = @"//w:p [ w:pPr / w:pStyle [@w:val='Heading1']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + n + "]/ following-sibling::w:tbl / w:tr /w:tc [count(. | //w:p [ w:pPr / w:pStyle [@w:val='Heading1']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + (n + 1) + "]/ preceding-sibling::w:tbl / w:tr /w:tc)= count(//w:p [ w:pPr / w:pStyle [@w:val='Heading1']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + (n + 1) + "]/preceding-sibling::w:tbl / w:tr /w:tc)]";
+					string xpath = @"//w:p [ w:pPr / w:pStyle [@w:val='Heading2']]["+i+"] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + n + "]/ following-sibling::w:tbl / w:tr /w:tc [count(. | //w:p [ w:pPr / w:pStyle [@w:val='Heading2']]["+i+"] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/ preceding-sibling::w:tbl / w:tr /w:tc)= count(//w:p [ w:pPr / w:pStyle [@w:val='Heading2']]["+i+"] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/preceding-sibling::w:tbl / w:tr /w:tc)]";
 					nodeList2 = root.SelectNodes(xpath, nsmgr);
 
 
