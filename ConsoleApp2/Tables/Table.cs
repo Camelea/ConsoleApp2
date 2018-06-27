@@ -14,7 +14,13 @@ namespace ConsoleApp2.Tables
 		public Contrainte Contraintes { get; set; }
 		public List<Donnee> Donnees { get; set; }
 
-
+		/// <summary>
+		/// Constructeur pour une table 
+		/// </summary>
+		/// <param name="Nom"></param>
+		/// <param name="Colonnes"></param>
+		/// <param name="Contraintes"></param>
+		/// <param name="donnees"></param>
 		public Table(string Nom, List<Colonne> Colonnes,Contrainte Contraintes,List<Donnee> donnees)
 		{
 			this.Nom = Nom;
@@ -35,8 +41,7 @@ namespace ConsoleApp2.Tables
 
 			XmlNodeList nodeList2;
 			XmlElement root = doc.DocumentElement;
-			List<string> ListeTables = new List<string>();
-			List<string> ListeTables2 = new List<string>();
+			List<string> ListeNomsTables = new List<string>();
 			string xpath = @"//w:p [ w:pPr / w:pStyle [@w:val='Heading1']][1]
 				/following-sibling:: w:p[ w:pPr / w:pStyle [@w:val='Heading2']]
 				[count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] / preceding-sibling::w:p [ w:pPr / w:pStyle [@w:val='Heading2']])= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2]/preceding-sibling::w:p  [ w:pPr / w:pStyle [@w:val='Heading2']])]";
@@ -45,10 +50,10 @@ namespace ConsoleApp2.Tables
 
 			foreach (XmlNode isbn2 in nodeList2)
 			{
-				ListeTables2.Add(isbn2.InnerText);
+				ListeNomsTables.Add(isbn2.InnerText);
 			}
 
-			return ListeTables2;
+			return ListeNomsTables;
 
 
 		}
@@ -60,10 +65,15 @@ namespace ConsoleApp2.Tables
 		/// <returns></returns>
 		public static int NombreTables(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
-			int res = NomsTables(doc, nsmgr).Count();
+			int res = NomsTables(doc, nsmgr).Count;
 			return res;
 		}
-
+		/// <summary>
+		/// Renvoie la liste des tables 
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
 		public static List<Table> Tables(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
 			List<string> noms = NomsTables(doc, nsmgr);

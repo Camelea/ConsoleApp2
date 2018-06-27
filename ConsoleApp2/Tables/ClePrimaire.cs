@@ -27,8 +27,8 @@ namespace ConsoleApp2.Tables
 		{
 			XmlNodeList nodeList2;
 			XmlElement root = doc.DocumentElement;
-			List<List<string>> ListeColonnesTables = new List<List<string>>();
-			List<List<ClePrimaire>> ListeColonnesTables2 = new List<List<ClePrimaire>>();
+			List<List<string>> ListeClesPrimairesTables = new List<List<string>>();
+			List<List<ClePrimaire>> ListeClesPrimairesTables2 = new List<List<ClePrimaire>>();
 
 
 			//nodeList2 = root.SelectNodes(" // w:p [ w:pPr / w:pStyle [@w:val='Heading2']] | // w:p  [ w:pPr / w:pStyle [@w:val='Heading2']] ", nsmgr);// 
@@ -38,21 +38,21 @@ namespace ConsoleApp2.Tables
 
 			{
 
-				ListeColonnesTables.Add(new List<string>());
+				ListeClesPrimairesTables.Add(new List<string>());
 				string xpath = @"//w:p [ w:pPr / w:pStyle [@w:val='Heading1']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + n + "]/ following-sibling::w:tbl / w:tr /w:tc [count(. | //w:p [ w:pPr / w:pStyle [@w:val='Heading1']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + (n + 1) + "]/ preceding-sibling::w:tbl / w:tr /w:tc)= count(//w:p [ w:pPr / w:pStyle [@w:val='Heading1']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + (n + 1) + "]/preceding-sibling::w:tbl / w:tr /w:tc)]";
 				nodeList2 = root.SelectNodes(xpath, nsmgr);
 
 
 				foreach (XmlNode isbn2 in nodeList2)
 				{
-					ListeColonnesTables[x].Add(isbn2.InnerText);
+					ListeClesPrimairesTables[x].Add(isbn2.InnerText);
 
 				}
-				ListeColonnesTables2.Add(ListeAClesPrimaires(ListeColonnesTables[x]));
+				ListeClesPrimairesTables2.Add(ListeAClesPrimaires(ListeClesPrimairesTables[x]));
 				n = n +6;
 				x++;
 			}
-			return ListeColonnesTables2;
+			return ListeClesPrimairesTables2;
 
 		}
 

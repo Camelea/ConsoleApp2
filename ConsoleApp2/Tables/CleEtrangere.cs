@@ -23,7 +23,7 @@ namespace ConsoleApp2.Tables
 		}
 
 		/// <summary>
-		/// Renvoie la liste des cles etrangeres associés à une liste donnée
+		/// Renvoie les colonnes de cles etrangeres associés à une liste donnée
 		/// </summary>
 		/// <returns></returns>
 		public static List<CleEtrangere> ListeAClesEtrangeres(List<string> liste)
@@ -36,13 +36,18 @@ namespace ConsoleApp2.Tables
 			return ListeClesEtrangeresTables;
 		}
 
-
+		/// <summary>
+		/// Methode qui permet de recuperer la liste des colonnes des tables 
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
 		public static List<List<CleEtrangere>> GetClesEtrangeresTables(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
 			XmlNodeList nodeList2;
 			XmlElement root = doc.DocumentElement;
-			List<List<string>> ListeColonnesTables = new List<List<string>>();
-			List<List<CleEtrangere>> ListeColonnesTables2 = new List<List<CleEtrangere>>();
+			List<List<string>> ListeClesEtrangeresTables = new List<List<string>>();
+			List<List<CleEtrangere>> ListeClesEtrangeresTables2 = new List<List<CleEtrangere>>();
 
 
 			//nodeList2 = root.SelectNodes(" // w:p [ w:pPr / w:pStyle [@w:val='Heading2']] | // w:p  [ w:pPr / w:pStyle [@w:val='Heading2']] ", nsmgr);// 
@@ -52,21 +57,21 @@ namespace ConsoleApp2.Tables
 
 			{
 
-				ListeColonnesTables.Add(new List<string>());
+				ListeClesEtrangeresTables.Add(new List<string>());
 				string xpath = @"//w:p [ w:pPr / w:pStyle [@w:val='Heading1']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + n + "]/ following-sibling::w:tbl / w:tr /w:tc [count(. | //w:p [ w:pPr / w:pStyle [@w:val='Heading1']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + (n + 1) + "]/ preceding-sibling::w:tbl / w:tr /w:tc)= count(//w:p [ w:pPr / w:pStyle [@w:val='Heading1']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + (n + 1) + "]/preceding-sibling::w:tbl / w:tr /w:tc)]";
 				nodeList2 = root.SelectNodes(xpath, nsmgr);
 
 
 				foreach (XmlNode isbn2 in nodeList2)
 				{
-					ListeColonnesTables[x].Add(isbn2.InnerText);
+					ListeClesEtrangeresTables[x].Add(isbn2.InnerText);
 
 				}
-				ListeColonnesTables2.Add(ListeAClesEtrangeres(ListeColonnesTables[x]));
+				ListeClesEtrangeresTables2.Add(ListeAClesEtrangeres(ListeClesEtrangeresTables[x]));
 				n = n + 6;
 				x++;
 			}
-			return ListeColonnesTables2;
+			return ListeClesEtrangeresTables2;
 
 		}
 	}
