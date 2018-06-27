@@ -104,19 +104,18 @@ namespace ConsoleApp2
 
 			//Console.ReadKey();
 
-			var col2 = Donnee.GetDonneesTables(doc, nsmgr);
-			foreach (List<Donnee> l in col2)
-			{
-				foreach (Donnee c in l)
+			var col2 = Table.Tables(doc, nsmgr);
+			foreach (Table l in col2)
+				
 				{
-					Console.WriteLine(c.ToString());
+					Console.WriteLine(l.Nom.ToString());
 				}
 
 
 				//}
 				//Console.ReadKey();
 
-			}
+			
 			Console.ReadKey();
 		}
 
