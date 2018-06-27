@@ -37,7 +37,7 @@ namespace ConsoleApp2.Tables
 		}
 
 
-		public static List<List<ContrainteDeVerification>> GetClesEtrangeresTables(XmlDocument doc, XmlNamespaceManager nsmgr)
+		public static List<List<ContrainteDeVerification>> GetContraintesDeVerificationTables(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
 			XmlNodeList nodeList2;
 			XmlElement root = doc.DocumentElement;

@@ -6,9 +6,9 @@ namespace ConsoleApp2.Tables
 	internal class Contrainte
 	{
 		public List<ClePrimaire> clesPrimaires;
-		List<CleEtrangere> clesetrangeres;
+		public List<CleEtrangere> clesetrangeres;
 		public List<ContrainteNonNulle> contraintesNonNulles;
-		//List<ContrainteVerification> contraintesdeverification;
+		public List<ContrainteDeVerification> contraintesdeverification;
 		public Sequence sequence;
 		public List<Index> indexes;
 		
@@ -19,7 +19,7 @@ namespace ConsoleApp2.Tables
 		/// <param name="clesPrimaires"></param>
 		/// <param name="contraintesNonNulles"></param>
 		/// <param name="indexes"></param>
-		public Contrainte(Sequence sequence,List<ClePrimaire> clesPrimaires, List<ContrainteNonNulle> contraintesNonNulles,List<Index> indexes, List<CleEtrangere> clesetrangeres)
+		public Contrainte(Sequence sequence,List<ClePrimaire> clesPrimaires, List<ContrainteNonNulle> contraintesNonNulles,List<Index> indexes, List<CleEtrangere> clesetrangeres, List<ContrainteDeVerification> contraintesdeverification)
 		{
 			this.clesPrimaires = clesPrimaires;
 			this.sequence = sequence;
@@ -27,6 +27,7 @@ namespace ConsoleApp2.Tables
 			this.contraintesNonNulles = contraintesNonNulles;
 			this.indexes = indexes;
 			this.clesetrangeres = clesetrangeres;
+			this.contraintesdeverification = contraintesdeverification;
 		}
 
 		public static List<Contrainte> Contraintes(XmlDocument doc, XmlNamespaceManager nsmgr)
@@ -37,9 +38,10 @@ namespace ConsoleApp2.Tables
 			List<List<ContrainteNonNulle>> contraintesnonnulles = ContrainteNonNulle.GetContraintesNonNullesTables(doc, nsmgr);
 			List<List<Index>> indexes = Index.GetIndexTables(doc, nsmgr);
 			List<List<CleEtrangere>> clesetrangeres = CleEtrangere.GetClesEtrangeresTables(doc, nsmgr);
+			List<List<ContrainteDeVerification>> contraintesdeverification = ContrainteDeVerification.GetContraintesDeVerificationTables(doc, nsmgr);
 			for (int i = 0; i < sequences.Count; i++)
 			{
-				contraintes.Add(new Contrainte(sequences[i],clesprimaires[i], contraintesnonnulles[i],indexes[i],clesetrangeres[i]));
+				contraintes.Add(new Contrainte(sequences[i],clesprimaires[i], contraintesnonnulles[i],indexes[i],clesetrangeres[i],contraintesdeverification[i]));
 		
 			}
 			return contraintes;

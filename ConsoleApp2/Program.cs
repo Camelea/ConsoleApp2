@@ -104,10 +104,10 @@ namespace ConsoleApp2
 
 			//Console.ReadKey();
 
-			var col2 = ContrainteDeVerification.GetClesEtrangeresTables(doc, nsmgr);
-			foreach (List<ContrainteDeVerification> l in col2)
+			var col2 = Donnee.GetDonneesTables(doc, nsmgr);
+			foreach (List<Donnee> l in col2)
 			{
-				foreach (ContrainteDeVerification c in l)
+				foreach (Donnee c in l)
 				{
 					Console.WriteLine(c.ToString());
 				}
