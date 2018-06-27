@@ -20,8 +20,8 @@ namespace ConsoleApp2.Tables
 		{
 			XmlNodeList nodeList2;
 			XmlElement root = doc.DocumentElement;
-			List<string> ListeColonnesTables = new List<string>();
-			List<Sequence> ListeColonnesTables2 = new List<Sequence>();
+			List<string> ListeSequencesTables = new List<string>();
+			List<Sequence> ListeSequencesTables2 = new List<Sequence>();
 
 
 			//nodeList2 = root.SelectNodes(" // w:p [ w:pPr / w:pStyle [@w:val='Heading2']] | // w:p  [ w:pPr / w:pStyle [@w:val='Heading2']] ", nsmgr);// 
@@ -36,23 +36,23 @@ namespace ConsoleApp2.Tables
 				nodeList2 = root.SelectNodes(xpath, nsmgr);
 				foreach (XmlNode isbn2 in nodeList2)
 				{
-					ListeColonnesTables.Add(isbn2.InnerText);
+					ListeSequencesTables.Add(isbn2.InnerText);
 				}
 				n = n + 6;
 			}
 
 			
-			for (int i = 0; i < ListeColonnesTables.Count - 1; i++)
+			for (int i = 0; i < ListeSequencesTables.Count - 1; i++)
 			{
-				ListeColonnesTables2.Add(new Sequence(ListeColonnesTables[i + 1]));
+				ListeSequencesTables2.Add(new Sequence(ListeSequencesTables[i + 1]));
 			}
 			
 
-			while (ListeColonnesTables2.Count < Table.NombreTables(doc, nsmgr))
+			while (ListeSequencesTables2.Count < Table.NombreTables(doc, nsmgr))
 			{
-				ListeColonnesTables2.Add(new Sequence("none"));
+				ListeSequencesTables2.Add(new Sequence("none"));
 			}
-			return ListeColonnesTables2;
+			return ListeSequencesTables2;
 		}
 	}
 }

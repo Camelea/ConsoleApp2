@@ -56,7 +56,6 @@
     <Compile Include="Tables\Donnes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tables\Cle.cs" />
     <Compile Include="Tables\CleEtrangere.cs" />
     <Compile Include="Tables\ClePrimaire.cs" />
     <Compile Include="Tables\Colonne.cs" />
