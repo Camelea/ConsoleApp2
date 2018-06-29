@@ -5,20 +5,20 @@ namespace ConsoleApp2.Tables
 {
 	internal class CleEtrangere 
 	{
-		public string nom;
-		public string colonne;
-		public string table;
+		public string Nom;
+		public string Colonne;
+		public string NomTable;
 
 
-		public CleEtrangere(string nom, string colonne, string table) 
+		public CleEtrangere(string nom, string colonne, string nomTable) 
 		{
-			this.nom = nom;
-			this.colonne = colonne;
-			this.table = table;
+			this.Nom = nom;
+			this.Colonne = colonne;
+			this.NomTable = nomTable;
 		}
 		public override string ToString()// à corriger 
 		{
-			return ("CONSTRAINT" + "\"" + this.nom + "\"" + "FOREIGN KEY ( \" " + this.colonne + " \" REFERENCES \" " + this.table + "(" + this.colonne + ")"); 
+			return ("CONSTRAINT" + "\"" + this.Nom + "\"" + "FOREIGN KEY ( \" " + this.Colonne + " \" REFERENCES \" " + this.NomTable + "(" + this.Colonne + ")"); 
 
 		}
 

@@ -17,15 +17,15 @@ namespace ConsoleApp2.Tables
 		/// <summary>
 		/// Constructeur pour une table 
 		/// </summary>
-		/// <param name="Nom"></param>
-		/// <param name="Colonnes"></param>
-		/// <param name="Contraintes"></param>
+		/// <param name="nom"></param>
+		/// <param name="colonnes"></param>
+		/// <param name="contraintes"></param>
 		/// <param name="donnees"></param>
-		public Table(string Nom, List<Colonne> Colonnes,Contrainte Contraintes,List<Donnee> donnees)
+		public Table(string nom, List<Colonne> colonnes,Contrainte contraintes,List<Donnee> donnees)
 		{
-			this.Nom = Nom;
-			this.Colonnes = Colonnes;
-			this.Contraintes = Contraintes;
+			this.Nom = nom;
+			this.Colonnes = colonnes;
+			this.Contraintes = contraintes;
 			this.Donnees = donnees;
 
 		}

@@ -7,19 +7,19 @@ namespace ConsoleApp2.Tables
 	internal class ClePrimaire 
 	{
 
-		public string nom;
-		public string colonne;
+		public string Nom;
+		public string Colonne;
 
 
 		public ClePrimaire(string nom, string colonne) 
 		{
-			this.nom = nom;
-			this.colonne = colonne;
+			this.Nom = nom;
+			this.Colonne = colonne;
 
 		}
 		public override string ToString()
 		{
-			return ("CONSTRAINT " + "\"" + this.nom + "\"" + "PIMARY KEY ( \" " + this.colonne + " \" REFERENCES \" "  + "(" + this.colonne + ")");
+			return ("CONSTRAINT " + "\"" + this.Nom + "\"" + "PIMARY KEY ( \" " + this.Colonne + " \" REFERENCES \" "  + "(" + this.Colonne + ")");
 		}
 
 

@@ -5,14 +5,16 @@ namespace ConsoleApp2.Tables
 {
 	internal class Sequence
 	{
-		public string nom { get; set; }
+		public string Nom { get; set; }
+
+
 		public Sequence(string nom)
 		{
-			this.nom = nom;
+			this.Nom = nom;
 		}
 		public override string ToString()
 		{
-			return (nom);
+			return Nom;
 		}
 
 

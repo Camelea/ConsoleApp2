@@ -5,19 +5,19 @@ namespace ConsoleApp2.Tables
 {
 	internal class ContrainteNonNulle
 	{
-		public string nom;
-		public string colonne;
+		public string Nom;
+		public string Colonne;
 
 
 		public ContrainteNonNulle(string nom, string colonne) 
 		{
-			this.nom = nom;
-			this.colonne = colonne;
+			this.Nom = nom;
+			this.Colonne = colonne;
 
 		}
 		public override string ToString()
 		{
-			return (nom + " NOT NULL"); //temporaire à regler plus tard 
+			return (Nom + " NOT NULL"); //temporaire à regler plus tard 
 		}
 
 		public static List<List<ContrainteNonNulle>> GetContraintesNonNullesTables(XmlDocument doc, XmlNamespaceManager nsmgr)

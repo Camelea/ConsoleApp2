@@ -64,6 +64,7 @@
     <Compile Include="Tables\ContrainteVerification.cs" />
     <Compile Include="EnumElements.cs" />
     <Compile Include="EnumStyles.cs" />
+    <Compile Include="Tables\Factorisationcs.cs" />
     <Compile Include="Tables\Index.cs" />
     <Compile Include="ListeTable.cs" />
     <Compile Include="Node.cs" />

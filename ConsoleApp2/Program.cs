@@ -1,4 +1,4 @@
-﻿using ConsoleApp2.Classes;
+﻿
 using ConsoleApp2.Tables;
 using System;
 using System.Collections;
@@ -108,7 +108,12 @@ namespace ConsoleApp2
 			foreach (Table l in col2)
 				
 				{
-					Console.WriteLine(l.Nom.ToString());
+				foreach (Donnee cl in l.Donnees)
+				{
+
+					Console.WriteLine(cl.ToString());
+				}
+
 				}
 
 

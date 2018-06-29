@@ -5,16 +5,16 @@ namespace ConsoleApp2.Tables
 {
 	internal class Colonne
 	{
-		List<Colonne> colonnes;
+		public List<Colonne> Colonnes;
 		public string type;
-		public string description;
+		public string Description;
 		public string nom;
 
 		public Colonne(string nom , string type , string description)
 		{
 			this.nom = nom;
 			this.type = type;
-			this.description = description;
+			this.Description = description;
 
 		}
 

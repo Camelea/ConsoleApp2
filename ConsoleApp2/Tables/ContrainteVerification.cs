@@ -5,20 +5,20 @@ namespace ConsoleApp2.Tables
 {
 	internal class ContrainteDeVerification
 	{
-		public string nom;
-		public string colonne;
-		public string condition;
+		public string Nom;
+		public string Colonne;
+		public string Condition;
 
 
 		public ContrainteDeVerification(string nom, string colonne, string condition)
 		{
-			this.nom = nom;
-			this.colonne = colonne;
-			this.condition = condition;
+			this.Nom = nom;
+			this.Colonne = colonne;
+			this.Condition = condition;
 		}
 		public override string ToString()// à corriger 
 		{
-			return (nom + "" + colonne + "" + condition);
+			return (Nom + "" + Colonne + "" + Condition);
 
 		}
 

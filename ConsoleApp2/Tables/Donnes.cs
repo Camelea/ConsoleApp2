@@ -6,19 +6,19 @@ namespace ConsoleApp2
 {
 	class Donnee
 	{
-		public string nom;
-		public string valeur;
+		public string Nom;
+		public string Valeur;
 
 
 		public Donnee(string nom, string valeur)
 		{
-			this.nom = nom;
-			this.valeur = valeur;
+			this.Nom = nom;
+			this.Valeur = valeur;
 
 		}
 		public override string ToString()
 		{
-			return (nom + "" + valeur);
+			return (Nom + "" + Valeur);
 		}
 
 
@@ -65,19 +65,19 @@ namespace ConsoleApp2
 
 
 		/// <summary>
-		/// Fonction qui prend une liste de string et la transforme en liste de cles primaires
+		/// Fonction qui prend une liste de string et la transforme en liste de donnes
 		/// 
 		/// </summary>
 		/// <param name="liste"></param>
 		/// <returns></returns>
 		public static List<Donnee> ListeADonnees(List<string> liste)
 		{
-			List<Donnee> ListeClesPrimaireTables = new List<Donnee>();
+			List<Donnee> ListeDonnesTables = new List<Donnee>();
 			for (int i = 2; i < liste.Count; i = i + 2)
 			{
-				ListeClesPrimaireTables.Add(new Donnee(liste[i], liste[i + 1]));
+				ListeDonnesTables.Add(new Donnee(liste[i], liste[i + 1]));
 			}
-			return ListeClesPrimaireTables;
+			return ListeDonnesTables;
 		}
 
 	}

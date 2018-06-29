@@ -5,12 +5,12 @@ namespace ConsoleApp2.Tables
 {
 	internal class Contrainte
 	{
-		public List<ClePrimaire> clesPrimaires;
-		public List<CleEtrangere> clesetrangeres;
-		public List<ContrainteNonNulle> contraintesNonNulles;
-		public List<ContrainteDeVerification> contraintesdeverification;
-		public Sequence sequence;
-		public List<Index> indexes;
+		public List<ClePrimaire> ClesPrimaires;
+		public List<CleEtrangere> Clesetrangeres;
+		public List<ContrainteNonNulle> ContraintesNonNulles;
+		public List<ContrainteDeVerification> Contraintesdeverification;
+		public Sequence Sequence;
+		public List<Index> Indexes;
 		
 		/// <summary>
 		/// Constructeur pour la contrainte qui va contenir une sequence , une liste de : clées primaires , clés etrangeres , contraintes non nulles et d'indexes 
@@ -19,15 +19,14 @@ namespace ConsoleApp2.Tables
 		/// <param name="clesPrimaires"></param>
 		/// <param name="contraintesNonNulles"></param>
 		/// <param name="indexes"></param>
-		public Contrainte(Sequence sequence,List<ClePrimaire> clesPrimaires, List<ContrainteNonNulle> contraintesNonNulles,List<Index> indexes, List<CleEtrangere> clesetrangeres, List<ContrainteDeVerification> contraintesdeverification)
+		public Contrainte(Sequence sequence,List<ClePrimaire> clesPrimaires, List<ContrainteNonNulle> contraintesNonNulles,List<Index> indexes, List<CleEtrangere> clesEtrangeres, List<ContrainteDeVerification> contraintesDeVerification)
 		{
-			this.clesPrimaires = clesPrimaires;
-			this.sequence = sequence;
-			this.sequence = sequence;
-			this.contraintesNonNulles = contraintesNonNulles;
-			this.indexes = indexes;
-			this.clesetrangeres = clesetrangeres;
-			this.contraintesdeverification = contraintesdeverification;
+			this.ClesPrimaires = clesPrimaires;
+			this.Sequence = sequence;
+			this.ContraintesNonNulles = contraintesNonNulles;
+			this.Indexes = indexes;
+			this.Clesetrangeres = clesEtrangeres;
+			this.Contraintesdeverification = contraintesDeVerification;
 		}
 
 		public static List<Contrainte> Contraintes(XmlDocument doc, XmlNamespaceManager nsmgr)

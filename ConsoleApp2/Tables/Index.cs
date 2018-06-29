@@ -6,19 +6,19 @@ namespace ConsoleApp2.Tables
 	internal class Index
 	{
 
-			public string nom;
-			public string colonne;
+			public string Nom;
+			public string Colonne;
 
 
 			public Index(string nom, string colonne)
 			{
-				this.nom = nom;
-				this.colonne = colonne;
+				this.Nom = nom;
+				this.Colonne = colonne;
 
 			}
 			public override string ToString()
 			{
-				return (this.nom + " " + this.colonne); //temporaire à regkler plus tard 
+				return (this.Nom + " " + this.Colonne); //temporaire à regkler plus tard 
 			}
 
 			public static List<List<Index>> GetIndexTables(XmlDocument doc, XmlNamespaceManager nsmgr)
@@ -56,7 +56,7 @@ namespace ConsoleApp2.Tables
 
 
 			/// <summary>
-			/// Fonction qui prend une liste de string et la transforme en liste de contraintes non nulles
+			/// Fonction qui prend une liste de string et la transforme en liste d'indexes
 			/// 
 			/// </summary>
 			/// <param name="liste"></param>
