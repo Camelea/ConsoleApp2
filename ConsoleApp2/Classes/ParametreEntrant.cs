@@ -8,6 +8,7 @@ namespace ConsoleApp2.Classes
 		public string Nom;
 		public string Type;
 		public string Description;
+		public string Obligatoire;
 
 
 
@@ -26,7 +27,7 @@ namespace ConsoleApp2.Classes
 
 		}
 		/// <summary>
-		/// Renvoie la liste des informaions de colonnes de chaque table
+		/// Renvoie la liste des informations de colonnes de chaque table
 		/// </summary>
 		/// <param name="doc"></param>
 		/// <param name="nsmgr"></param>

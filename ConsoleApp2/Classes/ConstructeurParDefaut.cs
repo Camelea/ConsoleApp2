@@ -18,7 +18,12 @@ namespace ConsoleApp2.Classes
 		}
 
 
-
+		/// <summary>
+		/// Fonction qui permet de recuperer la liste des descriptions des contraintes par defaut de toutes les classes 
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
 		public static List<string> GetDescriptionContrainteParDefaut(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
 			XmlNodeList nodeList2;
@@ -42,5 +47,41 @@ namespace ConsoleApp2.Classes
 
 			return ListeSequencesTables;
 		}
+		/// <summary>
+		/// Fonction qui permet de recuperer la liste des algorithmes des contraintes par defaut de toutes les classes 
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
+		public static List<string> GetAlgorithmeContrainteParDefaut(XmlDocument doc, XmlNamespaceManager nsmgr)
+		{
+			XmlNodeList nodeList2;
+			XmlElement root = doc.DocumentElement;
+			List<string> ListeSequencesTables = new List<string>();
+
+
+			int n = 1;
+			for (int i = 1; i < Classe.NombreClasses(doc, nsmgr) + 1; i++)
+
+			{
+				string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][3]/ following-sibling::w:p [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][2]/ preceding-sibling::w:p)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][2]/preceding-sibling::w:p)]";
+
+				nodeList2 = root.SelectNodes(xpath, nsmgr);
+				foreach (XmlNode isbn2 in nodeList2)
+				{
+					ListeSequencesTables.Add(isbn2.InnerText);
+				}
+				n = n + 1;
+			}
+
+			return ListeSequencesTables;
+		}
+
+
+
+
+
+
+		
 	}
 }
