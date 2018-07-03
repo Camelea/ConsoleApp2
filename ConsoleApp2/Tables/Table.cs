@@ -31,7 +31,7 @@ namespace ConsoleApp2.Tables
 		}
 
 		/// <summary>
-		/// 
+		/// Retourne une liste de noms des tables présentes dans le fichier
 		/// </summary>
 		/// <param name="doc"></param>
 		/// <param name="nsmgr"></param>
@@ -58,7 +58,7 @@ namespace ConsoleApp2.Tables
 
 		}
 		/// <summary>
-		/// Retourne le nombre de tables dans la classe 
+		/// Retourne le nombre de tables dans le fichier
 		/// </summary>
 		/// <param name="doc"></param>
 		/// <param name="nsmgr"></param>

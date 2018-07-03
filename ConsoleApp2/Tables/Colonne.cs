@@ -6,21 +6,21 @@ namespace ConsoleApp2.Tables
 	internal class Colonne
 	{
 		public List<Colonne> Colonnes;
-		public string type;
+		public string Type;
 		public string Description;
-		public string nom;
+		public string Nom;
 
 		public Colonne(string nom , string type , string description)
 		{
-			this.nom = nom;
-			this.type = type;
+			this.Nom = nom;
+			this.Type = type;
 			this.Description = description;
 
 		}
 
 		public override string ToString()
 		{
-			return (nom + " " + type );
+			return (Nom + " " + Type );
 
 		}
 		/// <summary>

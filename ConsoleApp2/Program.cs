@@ -1,4 +1,5 @@
 ﻿
+using ConsoleApp2.Classes;
 using ConsoleApp2.Tables;
 using System;
 using System.Collections;
@@ -56,15 +57,15 @@ namespace ConsoleApp2
 			nsmgr.AddNamespace("wps", "http://schemas.microsoft.com/office/word/2010/wordprocessingShape");
 			nsmgr.AddNamespace("mc: Ignorable", "w14 w15 w16se wp14");
 
-			//	var sequences = Sequence.GetSequencesTables(doc, nsmgr);
-			//	List<Sequence> resultat = sequences;
-			//	foreach (Sequence elem in resultat)
-			//	{
+			var sequences = Attribut.GetAttributsClasses(doc, nsmgr);
+			List<List<Attribut>> resultat = sequences;
+			foreach ( List<Attribut> x in resultat)
+			{
+				foreach ( Attribut y in x )
 
+				Console.WriteLine(y.ToString());
 
-			//			Console.WriteLine(elem.nom);
-
-			//		}
+			}
 
 
 
@@ -104,17 +105,17 @@ namespace ConsoleApp2
 
 			//Console.ReadKey();
 
-			var col2 = Table.Tables(doc, nsmgr);
-			foreach (Table l in col2)
+			//var col2 = Table.Tables(doc, nsmgr);
+			//foreach (Table l in col2)
 				
-				{
-				foreach (Donnee cl in l.Donnees)
-				{
+			//	{
+			//	foreach (Donnee cl in l.Donnees)
+			//	{
 
-					Console.WriteLine(cl.ToString());
-				}
+			//		Console.WriteLine(cl.ToString());
+			//	}
 
-				}
+			//	}
 
 
 				//}
