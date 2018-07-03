@@ -57,11 +57,11 @@ namespace ConsoleApp2
 			nsmgr.AddNamespace("wps", "http://schemas.microsoft.com/office/word/2010/wordprocessingShape");
 			nsmgr.AddNamespace("mc: Ignorable", "w14 w15 w16se wp14");
 
-			var sequences = Attribut.GetAttributsClasses(doc, nsmgr);
-			List<List<Attribut>> resultat = sequences;
-			foreach ( List<Attribut> x in resultat)
+			var sequences = ParametreEntrant.GetParametresEntrantsClasse(doc, nsmgr);
+			List<List<ParametreEntrant>> resultat = sequences;
+			foreach ( List<ParametreEntrant> x in resultat)
 			{
-				foreach ( Attribut y in x )
+				foreach ( ParametreEntrant y in x )
 
 				Console.WriteLine(y.ToString());
 
