@@ -56,12 +56,12 @@ namespace ConsoleApp2.Classes
 
 
 				foreach (XmlNode isbn2 in nodeList2)
-				{
+			{
 					ListeinformationsAttributsClasses[x].Add(isbn2.InnerText);
 
 				}
 				ListeAttributsClasses.Add(ListeAAttributs(ListeinformationsAttributsClasses[x]));
-				n = n + 5;
+				n = n + 4;
 				x++;
 			}
 			return ListeAttributsClasses;
