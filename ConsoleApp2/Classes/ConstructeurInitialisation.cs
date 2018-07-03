@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Xml;
 
 namespace ConsoleApp2.Classes
 {
@@ -15,5 +16,7 @@ namespace ConsoleApp2.Classes
 			this.Algorithme = algorithme;
 
 		}
+
+
 	}
 }
