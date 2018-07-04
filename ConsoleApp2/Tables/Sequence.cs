@@ -17,7 +17,12 @@ namespace ConsoleApp2.Tables
 			return Nom;
 		}
 
-
+		/// <summary>
+		/// Renvoie la liste des sequences des tables presentes dans le fichier 
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
 		public static List<Sequence> GetSequencesTables(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
 			XmlNodeList nodeList2;

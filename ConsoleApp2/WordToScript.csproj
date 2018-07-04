@@ -60,6 +60,7 @@
     <Compile Include="Classes\Methode.cs" />
     <Compile Include="Classes\ParametreEntrant.cs" />
     <Compile Include="Classes\ProprieteDynamique.cs" />
+    <Compile Include="Classes\TypeRetour.cs" />
     <Compile Include="Tables\Donnes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
