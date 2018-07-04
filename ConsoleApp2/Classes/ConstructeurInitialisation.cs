@@ -54,7 +54,7 @@ namespace ConsoleApp2.Classes
 		/// <param name="doc"></param>
 		/// <param name="nsmgr"></param>
 		/// <returns></returns>
-		public static List<string> GetAlgorithmeInitialisation(XmlDocument doc, XmlNamespaceManager nsmgr)
+		public static List<string> GetAlgorithmeContrainteInitialisation(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
 			XmlNodeList nodeList2;
 			XmlElement root = doc.DocumentElement;
@@ -76,6 +76,26 @@ namespace ConsoleApp2.Classes
 			}
 
 			return ListeSequencesTables;
+		}
+
+		/// <summary>
+		/// Permet de retourner une liste des constructeurs par defaut des classes presentes dans le fichier
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
+		public static List<ConstructeurInitialisation> ConstructeursInitialisation(XmlDocument doc, XmlNamespaceManager nsmgr)
+		{
+			List<List<ParametreEntrant>> parametresEntrants = ParametreEntrant.GetParametresEntrantsClasse(doc, nsmgr);
+			List<ConstructeurInitialisation> constructeursInitialisation = new List<ConstructeurInitialisation>();
+			List<string> descriptions = GetDescriptionContrainteInitialisation(doc, nsmgr);
+			List<string> algorithmes = GetAlgorithmeContrainteInitialisation(doc, nsmgr);
+			for (int i = 0; i < Classe.NombreClasses(doc, nsmgr); i++)
+			{
+				constructeursInitialisation.Add(new ConstructeurInitialisation(descriptions[i], parametresEntrants[i], algorithmes[i]));
+			}
+			return constructeursInitialisation;
+
 		}
 
 
