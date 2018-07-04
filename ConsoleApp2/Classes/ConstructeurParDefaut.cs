@@ -76,12 +76,30 @@ namespace ConsoleApp2.Classes
 
 			return ListeSequencesTables;
 		}
+		/// <summary>
+		/// Permet de retourner une liste des constructeurs par defaut des classes presentes dans le fichier
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
+		public static List<ConstructeurParDefaut> ConstructeursParDefaut(XmlDocument doc, XmlNamespaceManager nsmgr)
+		{
+			List<List<ParametreEntrant>> parametresEntrants = ParametreEntrant.GetParametresEntrantsClasse(doc, nsmgr);
+			List<ConstructeurParDefaut> constructeursParDefaut = new List<ConstructeurParDefaut>();
+			List<string> descriptions =GetDescriptionContrainteParDefaut(doc, nsmgr);
+			List<string> algorithmes = GetAlgorithmeContrainteParDefaut(doc, nsmgr);
+			for (int i = 0; i < Classe.NombreClasses(doc,nsmgr); i++)
+			{
+				constructeursParDefaut.Add( new ConstructeurParDefaut(descriptions[i], parametresEntrants[i], algorithmes[i]));
+			}
+			return constructeursParDefaut;
+
+		}
 
 
 
 
 
 
-		
 	}
 }
