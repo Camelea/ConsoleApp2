@@ -82,6 +82,8 @@
     <Compile Include="Tables\Table.cs" />
     <Compile Include="tables.cs" />
     <Compile Include="StringValue.cs" />
+    <Compile Include="WebMethodes\ParametreSortant.cs" />
+    <Compile Include="WebMethodes\WebMethode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -91,5 +93,6 @@
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

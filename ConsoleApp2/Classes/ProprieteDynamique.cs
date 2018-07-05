@@ -39,12 +39,12 @@ namespace ConsoleApp2.Classes
 			XmlNodeList nodeList2;
 			XmlElement root = doc.DocumentElement;
 			List<List<string>> ListeProprietesDynamiquesClasses = new List<List<string>>();
-			var n = 1;
+			
 			for (int i = 1; i < Classe.NombreClasses(doc, nsmgr) + 1; i++)
 
 			{
 				List<string> ListeProprietesDynamiquesClasse = new List<string>();
-				string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/ following-sibling::w:p [ w:pPr / w:pStyle [@w:val='Heading4']] [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][4]/ preceding-sibling::w:p [ w:pPr / w:pStyle [@w:val='Heading4']])= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][4]/preceding-sibling::w:p [ w:pPr / w:pStyle [@w:val='Heading4']])]";
+				string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/ following-sibling::w:p [ w:pPr / w:pStyle [@w:val='Heading4']] [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][4]/ preceding-sibling::w:p [ w:pPr / w:pStyle [@w:val='Heading4']])= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][4]/preceding-sibling::w:p [ w:pPr / w:pStyle [@w:val='Heading4']])]";
 
 				nodeList2 = root.SelectNodes(xpath, nsmgr);
 
@@ -53,7 +53,7 @@ namespace ConsoleApp2.Classes
 					ListeProprietesDynamiquesClasse.Add(isbn2.InnerText);
 				}
 				ListeProprietesDynamiquesClasses.Add(ListeProprietesDynamiquesClasse);
-				n++;
+			
 			}
 			
 			return ListeProprietesDynamiquesClasses;
@@ -68,12 +68,22 @@ namespace ConsoleApp2.Classes
 		/// <param name="doc"></param>
 		/// <param name="nsmgr"></param>
 		/// <returns></returns>
-		public static int NombreProprietesDynamiques(XmlDocument doc, XmlNamespaceManager nsmgr)
+		public static List<int> NombreProprietesDynamiques(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
-			int res = NomsProprietesDynamiquesClasses(doc, nsmgr).Count;
-			return res;
-		}
+			List<int> NombreProprietesDynamiquesClasses = new List<int>();
+			foreach (List<string> liste in NomsProprietesDynamiquesClasses(doc, nsmgr))
+			{
+				NombreProprietesDynamiquesClasses.Add(liste.Count);
 
+			}
+			return NombreProprietesDynamiquesClasses;
+		}
+		/// <summary>
+		/// retourne les descriptions des proprietes dynamiques des classes 
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
 		public static List<string> DescriptionsProprietesDynamiquesClasses(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
 
@@ -83,18 +93,19 @@ namespace ConsoleApp2.Classes
 			var n = 1;
 			for (int i = 1; i < Classe.NombreClasses(doc, nsmgr) + 1; i++){
 
-			var x = 1;
-			for (int cmp = 1; cmp < NombreProprietesDynamiques(doc,nsmgr) + 1; cmp++)
+			
+			for (int cmp = 1; cmp < NombreProprietesDynamiques(doc,nsmgr)[i] +1 ; cmp++)
 				{
-				string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + x + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][1] / following-sibling::w:p  [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + x + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][2] / preceding-sibling::w:p)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + x + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][2] / preceding-sibling::w:p)]";
+				string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + cmp + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][1] / following-sibling::w:p  [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + cmp + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][2] / preceding-sibling::w:p)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + cmp + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][2] / preceding-sibling::w:p)]";
 
 				nodeList2 = root.SelectNodes(xpath, nsmgr);
 
 				foreach (XmlNode isbn2 in nodeList2)
 					{
-						ListeClassesTables.Add(isbn2.InnerText);
+
+				ListeClassesTables.Add(isbn2.InnerText);
 					}
-				x++;
+				
 			}
 				n++;
 			}
@@ -104,9 +115,7 @@ namespace ConsoleApp2.Classes
 
 		}
 
-
-
-
+	
 	}
 }
 
