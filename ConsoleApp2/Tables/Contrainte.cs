@@ -47,7 +47,7 @@ namespace ConsoleApp2.Tables
 		{
 			List<Sequence> sequences = Sequence.GetSequencesTables(doc, nsmgr);
 			List<Contrainte> contraintes = new List<Contrainte>();
-			List<List<ClePrimaire>> clesprimaires = ClePrimaire.GetClesPrimairesTables(doc, nsmgr);
+			List<List<ClePrimaire>> clesprimaires = ClePrimaire.ClesPrimairesTables(doc, nsmgr);
 			List<List<ContrainteNonNulle>> contraintesnonnulles = ContrainteNonNulle.GetContraintesNonNullesTables(doc, nsmgr);
 			List<List<Index>> indexes = Index.GetIndexTables(doc, nsmgr);
 			List<List<CleEtrangere>> clesetrangeres = CleEtrangere.GetClesEtrangeresTables(doc, nsmgr);

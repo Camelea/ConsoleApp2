@@ -5,11 +5,14 @@ namespace ConsoleApp2.Tables
 {
 	internal class Colonne
 	{
-		public List<Colonne> Colonnes;
+		#region Attributs
 		public string Type;
 		public string Description;
 		public string Nom;
 
+		#endregion
+
+		#region Constructeur
 		public Colonne(string nom , string type , string description)
 		{
 			this.Nom = nom;
@@ -17,14 +20,20 @@ namespace ConsoleApp2.Tables
 			this.Description = description;
 
 		}
+		#endregion
+
+		#region Méthodes
 
 		public override string ToString()
 		{
 			return (Nom + " " + Type );
 
 		}
+
+
+
 		/// <summary>
-		/// Renvoie la liste des informaions de colonnes de chaque table
+		/// Renvoie la liste des colonnes des tables 
 		/// </summary>
 		/// <param name="doc"></param>
 		/// <param name="nsmgr"></param>
@@ -33,8 +42,8 @@ namespace ConsoleApp2.Tables
 		{
 			XmlNodeList nodeList2;
 			XmlElement root = doc.DocumentElement;
-			List<List<string>> ListeColonnesTables = new List<List<string>>();
-			List<List<Colonne>> ListeColonnesTables2 = new List<List<Colonne>>();
+			List<List<string>> ListeColonnes = new List<List<string>>();
+			List<List<Colonne>> ListeColonnesTables = new List<List<Colonne>>();
 
 
 			//nodeList2 = root.SelectNodes(" // w:p [ w:pPr / w:pStyle [@w:val='Heading2']] | // w:p  [ w:pPr / w:pStyle [@w:val='Heading2']] ", nsmgr);// 
@@ -44,7 +53,7 @@ namespace ConsoleApp2.Tables
 
 			{
 
-				ListeColonnesTables.Add(new List<string>());
+				ListeColonnes.Add(new List<string>());
 				string xpath = @"//w:p [ w:pPr / w:pStyle [@w:val='Heading1']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][" + n + "]/ following-sibling::w:tbl / w:tr /w:tc [count(. | //w:p [ w:pPr / w:pStyle [@w:val='Heading1']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][" + (n + 1) + "]/ preceding-sibling::w:tbl / w:tr /w:tc)= count(//w:p [ w:pPr / w:pStyle [@w:val='Heading1']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][" + (n + 1) + "]/preceding-sibling::w:tbl / w:tr /w:tc)]";
 
 				
@@ -53,14 +62,14 @@ namespace ConsoleApp2.Tables
 				
 				foreach (XmlNode isbn2 in nodeList2)
 				{
-					ListeColonnesTables[x].Add(isbn2.InnerText);
+					ListeColonnes[x].Add(isbn2.InnerText);
 
 				}
-				ListeColonnesTables2.Add(ListeAColonnes(ListeColonnesTables[x]));
+				ListeColonnesTables.Add(ListeAColonnes(ListeColonnes[x]));
 				n = n + 3;
 				x++;
 			}
-			return ListeColonnesTables2;
+			return ListeColonnesTables;
 		
 		}
 				
@@ -77,6 +86,8 @@ namespace ConsoleApp2.Tables
 			}
 			return ListeColonnesTables;
 		}
+
+		#endregion
 
 	}
 }

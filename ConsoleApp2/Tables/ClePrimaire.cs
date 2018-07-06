@@ -6,53 +6,63 @@ namespace ConsoleApp2.Tables
 {
 	internal class ClePrimaire 
 	{
+		#region Attributs
 
 		public string Nom;
 		public string Colonne;
 
+		#endregion
 
+		#region Constructeur 
 		public ClePrimaire(string nom, string colonne) 
 		{
 			this.Nom = nom;
 			this.Colonne = colonne;
 
 		}
+
+		#endregion
+
+		#region Méthodes
 		public override string ToString()
 		{
 			return ("CONSTRAINT " + "\"" + this.Nom + "\"" + "PIMARY KEY ( \" " + this.Colonne + " \" REFERENCES \" "  + "(" + this.Colonne + ")");
 		}
 
-
-		public static List<List<ClePrimaire>> GetClesPrimairesTables(XmlDocument doc, XmlNamespaceManager nsmgr)
+		/// <summary>
+		/// Fonction qui renvoie une liste de listes des clées primaires de chaque table 
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
+		public static List<List<ClePrimaire>> ClesPrimairesTables(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
 			XmlNodeList nodeList2;
 			XmlElement root = doc.DocumentElement;
-			List<List<string>> ListeClesPrimairesTables = new List<List<string>>();
-			List<List<ClePrimaire>> ListeClesPrimairesTables2 = new List<List<ClePrimaire>>();
+			List<List<string>> ListeClesPrimaires = new List<List<string>>();
+			List<List<ClePrimaire>> ListeClesPrimairesTables = new List<List<ClePrimaire>>();
 
 
 			//nodeList2 = root.SelectNodes(" // w:p [ w:pPr / w:pStyle [@w:val='Heading2']] | // w:p  [ w:pPr / w:pStyle [@w:val='Heading2']] ", nsmgr);// 
 			int n = 2;
-			int x = 0;
 			for (int i = 1; i < Table.NombreTables(doc, nsmgr) + 1; i++)
 
 			{
 
-				ListeClesPrimairesTables.Add(new List<string>());
+				ListeClesPrimaires.Add(new List<string>());
 				string xpath = @"//w:p [ w:pPr / w:pStyle [@w:val='Heading1']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + n + "]/ following-sibling::w:tbl / w:tr /w:tc [count(. | //w:p [ w:pPr / w:pStyle [@w:val='Heading1']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + (n + 1) + "]/ preceding-sibling::w:tbl / w:tr /w:tc)= count(//w:p [ w:pPr / w:pStyle [@w:val='Heading1']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + (n + 1) + "]/preceding-sibling::w:tbl / w:tr /w:tc)]";
 				nodeList2 = root.SelectNodes(xpath, nsmgr);
 
 
 				foreach (XmlNode isbn2 in nodeList2)
 				{
-					ListeClesPrimairesTables[x].Add(isbn2.InnerText);
+					ListeClesPrimaires[i-1].Add(isbn2.InnerText);
 
 				}
-				ListeClesPrimairesTables2.Add(ListeAClesPrimaires(ListeClesPrimairesTables[x]));
+				ListeClesPrimairesTables.Add(ListeAClesPrimaires(ListeClesPrimaires[i-1]));
 				n = n +6;
-				x++;
 			}
-			return ListeClesPrimairesTables2;
+			return ListeClesPrimairesTables;
 
 		}
 
@@ -72,6 +82,8 @@ namespace ConsoleApp2.Tables
 			}
 			return ListeClesPrimaireTables;
 		}
+
+		#endregion
 
 
 

@@ -5,16 +5,20 @@ namespace ConsoleApp2.Tables
 {
 	internal class ContrainteNonNulle
 	{
+		#region Attributs
 		public string Nom;
 		public string Colonne;
+		#endregion
 
-
+		#region Constructeur
 		public ContrainteNonNulle(string nom, string colonne) 
 		{
 			this.Nom = nom;
 			this.Colonne = colonne;
 
 		}
+		#endregion
+
 		public override string ToString()
 		{
 			return (Nom + " NOT NULL"); //temporaire à regler plus tard 
