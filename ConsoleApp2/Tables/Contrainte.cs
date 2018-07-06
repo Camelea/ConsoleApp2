@@ -5,13 +5,18 @@ namespace ConsoleApp2.Tables
 {
 	internal class Contrainte
 	{
+		#region Attributs
 		public List<ClePrimaire> ClesPrimaires;
 		public List<CleEtrangere> Clesetrangeres;
 		public List<ContrainteNonNulle> ContraintesNonNulles;
 		public List<ContrainteDeVerification> Contraintesdeverification;
 		public Sequence Sequence;
 		public List<Index> Indexes;
-		
+
+		#endregion
+
+
+		#region Constructeur 
 		/// <summary>
 		/// Constructeur pour la contrainte qui va contenir une sequence , une liste de : clées primaires , clés etrangeres , contraintes non nulles et d'indexes 
 		/// </summary>
@@ -28,7 +33,9 @@ namespace ConsoleApp2.Tables
 			this.Clesetrangeres = clesEtrangeres;
 			this.Contraintesdeverification = contraintesDeVerification;
 		}
+		#endregion
 
+		#region Méthodes
 		public static List<Contrainte> Contraintes(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
 			List<Sequence> sequences = Sequence.GetSequencesTables(doc, nsmgr);
@@ -46,7 +53,7 @@ namespace ConsoleApp2.Tables
 			return contraintes;
 
 		}
-
+		#endregion
 
 
 

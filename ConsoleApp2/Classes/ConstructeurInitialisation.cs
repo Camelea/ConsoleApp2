@@ -86,7 +86,7 @@ namespace ConsoleApp2.Classes
 		/// <returns></returns>
 		public static List<ConstructeurInitialisation> ConstructeursInitialisation(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
-			List<List<ParametreEntrant>> parametresEntrants = ParametreEntrant.GetParametresEntrantsClasse(doc, nsmgr);
+			List<List<ParametreEntrant>> parametresEntrants = ParametreEntrant.GetParametresEntrantsConstructeurParDeafutClasse(doc, nsmgr);
 			List<ConstructeurInitialisation> constructeursInitialisation = new List<ConstructeurInitialisation>();
 			List<string> descriptions = GetDescriptionContrainteInitialisation(doc, nsmgr);
 			List<string> algorithmes = GetAlgorithmeContrainteInitialisation(doc, nsmgr);

@@ -10,13 +10,17 @@ namespace ConsoleApp2.WebMethodes
 {
 	class WebMethode
 	{
+		#region Attributs
+
 		public string Nom;
 		public string Description;
 		public List<ParametreEntrant> ParametreEntrant;
 		public List<ParametreSortant> ParametreSortant;
 		public string Algorithme;
 
+		#endregion
 
+		#region Constructeur
 		public WebMethode(string nom, string description, List<ParametreEntrant> parametreEntrant, List<ParametreSortant> parametreSortant, string algorithme)
 		{
 			this.Nom = nom;
@@ -26,6 +30,11 @@ namespace ConsoleApp2.WebMethodes
 			this.Algorithme = algorithme;
 
 		}
+
+		#endregion
+
+#region Méthodes
+
 		/// <summary>
 		/// Retourne une liste de noms des web méthodes présentes dans le fichier
 		/// </summary>
@@ -64,24 +73,22 @@ namespace ConsoleApp2.WebMethodes
 		{
 			XmlNodeList nodeList2;
 			XmlElement root = doc.DocumentElement;
-			List<string> ListeSequencesTables = new List<string>();
+			List<string> ListeDescriptionsWebMethodes = new List<string>();
 
-
-			int n = 1;
 			for (int i = 1; i < NombreWebMethodes(doc, nsmgr) + 1; i++)
 
 			{
-				string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][5] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][1]/ following-sibling::w:p [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][5] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][2]/ preceding-sibling::w:p)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][5] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][2]/preceding-sibling::w:p)]";
+				string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][5] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][1]/ following-sibling::w:p [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][5] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][2]/ preceding-sibling::w:p)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][5] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][2]/preceding-sibling::w:p)]";
 
 				nodeList2 = root.SelectNodes(xpath, nsmgr);
 				foreach (XmlNode isbn2 in nodeList2)
 				{
-					ListeSequencesTables.Add(isbn2.InnerText);
+					ListeDescriptionsWebMethodes.Add(isbn2.InnerText);
 				}
-				n = n + 1;
+				
 			}
 
-			return ListeSequencesTables;
+			return ListeDescriptionsWebMethodes;
 		}
 
 		/// <summary>
@@ -95,5 +102,35 @@ namespace ConsoleApp2.WebMethodes
 			int res = NomsWebMethodes(doc, nsmgr).Count;
 			return res;
 		}
+
+		/// <summary>
+		/// Fonction qui permet de recuperer la liste des descriptions des web methodes
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
+		public static List<string> GetAlgorithmesWebMethode(XmlDocument doc, XmlNamespaceManager nsmgr)
+		{
+			XmlNodeList nodeList2;
+			XmlElement root = doc.DocumentElement;
+			List<string> ListeAlgorithmesWebMethodes = new List<string>();
+
+			for (int i = 1; i < NombreWebMethodes(doc, nsmgr) + 1; i++)
+
+			{
+				string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][5] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][4]/ following-sibling::w:p [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][5] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] / preceding-sibling::w:p [ w:pPr / w:pStyle [@w:val='Heading2']]["+(i+1)+"])= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][5] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /preceding-sibling::w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + (i + 1) + "])]";
+
+				nodeList2 = root.SelectNodes(xpath, nsmgr);
+				foreach (XmlNode isbn2 in nodeList2)
+				{
+					ListeAlgorithmesWebMethodes.Add(isbn2.InnerText);
+				}
+
+			}
+
+			return ListeAlgorithmesWebMethodes;
+		}
+
+		#endregion
 	}
 }

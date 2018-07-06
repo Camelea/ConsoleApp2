@@ -58,7 +58,7 @@
     <Compile Include="Classes\ConstructeurInitialisation.cs" />
     <Compile Include="Classes\ConstructeurParDefaut.cs" />
     <Compile Include="Classes\Methode.cs" />
-    <Compile Include="Classes\ParametreEntrant.cs" />
+    <Compile Include="ParametreEntrant.cs" />
     <Compile Include="Classes\ProprieteDynamique.cs" />
     <Compile Include="Classes\TypeRetour.cs" />
     <Compile Include="Tables\Donnes.cs" />
@@ -70,18 +70,10 @@
     <Compile Include="Tables\Contrainte.cs" />
     <Compile Include="Tables\ContrainteNonNulle.cs" />
     <Compile Include="Tables\ContrainteVerification.cs" />
-    <Compile Include="EnumElements.cs" />
-    <Compile Include="EnumStyles.cs" />
     <Compile Include="Tables\Factorisationcs.cs" />
     <Compile Include="Tables\Index.cs" />
-    <Compile Include="ListeTable.cs" />
-    <Compile Include="Node.cs" />
-    <Compile Include="NodeManager.cs" />
     <Compile Include="Tables\Sequence.cs" />
-    <Compile Include="StringEnum.cs" />
     <Compile Include="Tables\Table.cs" />
-    <Compile Include="tables.cs" />
-    <Compile Include="StringValue.cs" />
     <Compile Include="WebMethodes\ParametreSortant.cs" />
     <Compile Include="WebMethodes\WebMethode.cs" />
   </ItemGroup>

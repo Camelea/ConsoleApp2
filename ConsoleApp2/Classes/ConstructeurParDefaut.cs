@@ -84,7 +84,7 @@ namespace ConsoleApp2.Classes
 		/// <returns></returns>
 		public static List<ConstructeurParDefaut> ConstructeursParDefaut(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
-			List<List<ParametreEntrant>> parametresEntrants = ParametreEntrant.GetParametresEntrantsClasse(doc, nsmgr);
+			List<List<ParametreEntrant>> parametresEntrants = ParametreEntrant.GetParametresEntrantsConstructeurParDeafutClasse(doc, nsmgr);
 			List<ConstructeurParDefaut> constructeursParDefaut = new List<ConstructeurParDefaut>();
 			List<string> descriptions =GetDescriptionContrainteParDefaut(doc, nsmgr);
 			List<string> algorithmes = GetAlgorithmeContrainteParDefaut(doc, nsmgr);

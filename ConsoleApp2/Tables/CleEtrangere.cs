@@ -5,17 +5,22 @@ namespace ConsoleApp2.Tables
 {
 	internal class CleEtrangere 
 	{
+		#region Attributs
 		public string Nom;
 		public string Colonne;
 		public string NomTable;
+		#endregion
 
-
+		#region Constructeur
 		public CleEtrangere(string nom, string colonne, string nomTable) 
 		{
 			this.Nom = nom;
 			this.Colonne = colonne;
 			this.NomTable = nomTable;
 		}
+		#endregion
+
+		#region Méthodes 
 		public override string ToString()// à corriger 
 		{
 			return ("CONSTRAINT" + "\"" + this.Nom + "\"" + "FOREIGN KEY ( \" " + this.Colonne + " \" REFERENCES \" " + this.NomTable + "(" + this.Colonne + ")"); 
@@ -74,6 +79,7 @@ namespace ConsoleApp2.Tables
 			return ListeClesEtrangeresTables2;
 
 		}
+		#endregion
 	}
 
 }
