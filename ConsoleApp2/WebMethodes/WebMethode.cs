@@ -14,8 +14,8 @@ namespace ConsoleApp2.WebMethodes
 
 		public string Nom;
 		public string Description;
-		public List<ParametreEntrant> ParametreEntrant;
-		public List<ParametreSortant> ParametreSortant;
+		public List<ParametreEntrant> parametreEntrant;
+		public List<ParametreSortant> parametreSortant;
 		public string Algorithme;
 
 		#endregion
@@ -25,8 +25,8 @@ namespace ConsoleApp2.WebMethodes
 		{
 			this.Nom = nom;
 			this.Description = description;
-			this.ParametreEntrant = parametreEntrant;
-			this.ParametreSortant = parametreSortant;
+			this.parametreEntrant = parametreEntrant;
+			this.parametreSortant = parametreSortant;
 			this.Algorithme = algorithme;
 
 		}
@@ -69,7 +69,7 @@ namespace ConsoleApp2.WebMethodes
 		/// <param name="doc"></param>
 		/// <param name="nsmgr"></param>
 		/// <returns></returns>
-		public static List<string> GetDescriptionWebMethode(XmlDocument doc, XmlNamespaceManager nsmgr)
+		public static List<string> DescriptionsWebMethodes(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
 			XmlNodeList nodeList2;
 			XmlElement root = doc.DocumentElement;
@@ -109,7 +109,7 @@ namespace ConsoleApp2.WebMethodes
 		/// <param name="doc"></param>
 		/// <param name="nsmgr"></param>
 		/// <returns></returns>
-		public static List<string> GetAlgorithmesWebMethode(XmlDocument doc, XmlNamespaceManager nsmgr)
+		public static List<string> AlgorithmesWebMethodes(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
 			XmlNodeList nodeList2;
 			XmlElement root = doc.DocumentElement;
@@ -117,18 +117,59 @@ namespace ConsoleApp2.WebMethodes
 
 			for (int i = 1; i < NombreWebMethodes(doc, nsmgr) + 1; i++)
 
-			{
-				string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][5] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][4]/ following-sibling::w:p [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][5] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] / preceding-sibling::w:p [ w:pPr / w:pStyle [@w:val='Heading2']]["+(i+1)+"])= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][5] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /preceding-sibling::w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + (i + 1) + "])]";
-
-				nodeList2 = root.SelectNodes(xpath, nsmgr);
-				foreach (XmlNode isbn2 in nodeList2)
+			{	if (i < NombreWebMethodes(doc, nsmgr))
 				{
-					ListeAlgorithmesWebMethodes.Add(isbn2.InnerText);
+					string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][5] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][4]/ following-sibling::w:p [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][5] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + (i + 1) + "]/ preceding-sibling::w:p)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][5] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + (i + 1) + "]/preceding-sibling::w:p)]";
+
+
+					nodeList2 = root.SelectNodes(xpath, nsmgr);
+
+					foreach (XmlNode isbn2 in nodeList2)
+					{
+						ListeAlgorithmesWebMethodes.Add(isbn2.InnerText);
+					}
 				}
+				else
+				{
+
+					string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][5] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][4]/ following-sibling::w:p [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][6] / preceding-sibling::w:p)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][6]/preceding-sibling::w:p)]";
+
+
+					nodeList2 = root.SelectNodes(xpath, nsmgr);
+
+					foreach (XmlNode isbn2 in nodeList2)
+					{
+						ListeAlgorithmesWebMethodes.Add(isbn2.InnerText);
+					}
+				}
+				
 
 			}
 
 			return ListeAlgorithmesWebMethodes;
+		}
+
+		/// <summary>
+		/// Fonction qui permet de construire une web méthode
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
+		public static List<WebMethode> WebMethodes(XmlDocument doc, XmlNamespaceManager nsmgr)
+		{
+			List<string> noms = NomsWebMethodes(doc, nsmgr);
+			List<WebMethode> webMethodes = new List<WebMethode>();
+			List<string> descriptions = DescriptionsWebMethodes(doc, nsmgr);
+			List<string> algorithmes = AlgorithmesWebMethodes(doc, nsmgr);
+			List<List<ParametreEntrant>> parametresEntrants = ParametreEntrant.GetParametresEntrantsWebMethode(doc, nsmgr);
+			List<List<ParametreSortant>> parametresSortants = ParametreSortant.GetParametresSortantsWebMethode(doc, nsmgr);
+			for (int i = 0; i < noms.Count; i++)
+			{
+				webMethodes.Add(new WebMethode(noms[i], descriptions[i], parametresEntrants[i], parametresSortants[i], algorithmes[i]));
+
+			}
+			return webMethodes;
+
 		}
 
 		#endregion

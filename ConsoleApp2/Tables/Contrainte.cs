@@ -35,7 +35,14 @@ namespace ConsoleApp2.Tables
 		}
 		#endregion
 
+
 		#region Méthodes
+		/// <summary>
+		/// Fonction qui permet de construire une contrainte
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
 		public static List<Contrainte> Contraintes(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
 			List<Sequence> sequences = Sequence.GetSequencesTables(doc, nsmgr);
