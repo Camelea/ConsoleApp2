@@ -5,9 +5,15 @@ namespace ConsoleApp2.Classes
 {
 	public class ConstructeurInitialisation
 	{
+		#region Attributs
+
 		public string Description;
 		public List<ParametreEntrant> ParametresEntrants;
 		public string Algorithme;
+
+		#endregion
+
+		#region Constructeur
 
 		public ConstructeurInitialisation(string description, List<ParametreEntrant> parametresEntrants, string algorithme)
 		{
@@ -16,6 +22,10 @@ namespace ConsoleApp2.Classes
 			this.Algorithme = algorithme;
 
 		}
+		#endregion
+
+		#region Méthodes
+
 
 
 		/// <summary>
@@ -97,6 +107,7 @@ namespace ConsoleApp2.Classes
 			return constructeursInitialisation;
 
 		}
+		#endregion
 
 
 

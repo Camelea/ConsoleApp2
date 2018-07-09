@@ -5,9 +5,15 @@ namespace ConsoleApp2.Classes
 {
 	public class ConstructeurParDefaut
 	{
+		#region Attributs
+
 		public string Description;
 		public List<ParametreEntrant> ParametresEntrants;
 		public string Algorithme;
+
+		#endregion
+
+		#region Constructeur 
 
 		public ConstructeurParDefaut(string description, List<ParametreEntrant> parametresEntrants, string algorithme)
 		{
@@ -16,6 +22,10 @@ namespace ConsoleApp2.Classes
 			this.Algorithme = algorithme;
 
 		}
+
+		#endregion
+
+		#region Méthodes
 
 
 		/// <summary>
@@ -28,7 +38,7 @@ namespace ConsoleApp2.Classes
 		{
 			XmlNodeList nodeList2;
 			XmlElement root = doc.DocumentElement;
-			List<string> ListeSequencesTables = new List<string>();
+			List<string> ListeDescriptionsContraintesParDefautClasse = new List<string>();
 
 
 			int n = 1;
@@ -40,12 +50,12 @@ namespace ConsoleApp2.Classes
 				nodeList2 = root.SelectNodes(xpath, nsmgr);
 				foreach (XmlNode isbn2 in nodeList2)
 				{
-					ListeSequencesTables.Add(isbn2.InnerText);
+					ListeDescriptionsContraintesParDefautClasse.Add(isbn2.InnerText);
 				}
 				n = n + 1;
 			}
 
-			return ListeSequencesTables;
+			return ListeDescriptionsContraintesParDefautClasse;
 		}
 		/// <summary>
 		/// Fonction qui permet de recuperer la liste des algorithmes des contraintes par defaut de toutes les classes 
@@ -57,7 +67,7 @@ namespace ConsoleApp2.Classes
 		{
 			XmlNodeList nodeList2;
 			XmlElement root = doc.DocumentElement;
-			List<string> ListeSequencesTables = new List<string>();
+			List<string> ListeAlgorithmessContraintesParDefautClasse = new List<string>();
 
 
 			int n = 1;
@@ -69,13 +79,15 @@ namespace ConsoleApp2.Classes
 				nodeList2 = root.SelectNodes(xpath, nsmgr);
 				foreach (XmlNode isbn2 in nodeList2)
 				{
-					ListeSequencesTables.Add(isbn2.InnerText);
+					ListeAlgorithmessContraintesParDefautClasse.Add(isbn2.InnerText);
 				}
 				n = n + 1;
 			}
 
-			return ListeSequencesTables;
+			return ListeAlgorithmessContraintesParDefautClasse;
 		}
+
+
 		/// <summary>
 		/// Permet de retourner une liste des constructeurs par defaut des classes presentes dans le fichier
 		/// </summary>
@@ -96,6 +108,7 @@ namespace ConsoleApp2.Classes
 
 		}
 
+		#endregion
 
 
 

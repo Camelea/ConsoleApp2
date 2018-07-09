@@ -68,6 +68,9 @@ namespace ConsoleApp2.Tables
 			int res = NomsTables(doc, nsmgr).Count;
 			return res;
 		}
+
+
+
 		/// <summary>
 		/// Renvoie la liste des tables 
 		/// </summary>

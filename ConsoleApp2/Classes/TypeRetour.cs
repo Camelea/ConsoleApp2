@@ -5,14 +5,24 @@ namespace ConsoleApp2.Classes
 {
 	public class TypeRetour
 	{
+		#region Attributs 
+
 		public string Type;
 		public string Description;
+
+		#endregion
+
+		#region Constructeur 
 
 		public TypeRetour(string type, string description)
 		{
 			this.Type = type;
 			this.Description = description;
 		}
+
+		#endregion
+
+		#region Méthodes
 
 		/// <summary>
 		/// retourne la liste des type de retour des proprietes dynamiques des classes 
@@ -71,6 +81,8 @@ namespace ConsoleApp2.Classes
 			}
 			return ListeClesPrimaireTables;
 		}
+
+		#endregion
 
 
 

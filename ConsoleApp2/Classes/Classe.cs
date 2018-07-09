@@ -10,11 +10,17 @@ namespace ConsoleApp2.Classes
 
 	internal class Classe
 	{
+		#region Attributs
+
 		public string Nom;
 		public List<Attribut> Attributs;
 		public List<Constructeur> Constructeurs;
 		public List<ProprieteDynamique> ProprietesDynamiques;
 		public List<Methode> Methodes;
+
+		#endregion
+
+		#region Constructeur 
 
 		public Classe(string nom, List<Attribut> attributs, List<Constructeur> constructeurs, List<ProprieteDynamique> proprietesDynamiques, List<Methode> methodes)
 		{
@@ -25,8 +31,12 @@ namespace ConsoleApp2.Classes
 			this.Methodes = methodes;
 		}
 
+		#endregion
+
+		#region Méthodes
+
 		/// <summary>
-		/// Retourne une liste de noms des classes présentes dans le fichier
+		/// Retourne la liste de noms des classes présentes dans le fichier
 		/// </summary>
 		/// <param name="doc"></param>
 		/// <param name="nsmgr"></param>
@@ -36,7 +46,7 @@ namespace ConsoleApp2.Classes
 
 			XmlNodeList nodeList2;
 			XmlElement root = doc.DocumentElement;
-			List<string> ListeClassesTables = new List<string>();
+			List<string> ListeClasses = new List<string>();
 			string xpath = @"//w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2]
 				/following-sibling:: w:p[ w:pPr / w:pStyle [@w:val='Heading2']]
 				[count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][3] / preceding-sibling::w:p [ w:pPr / w:pStyle [@w:val='Heading2']])= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][3]/preceding-sibling::w:p  [ w:pPr / w:pStyle [@w:val='Heading2']])]";
@@ -45,10 +55,10 @@ namespace ConsoleApp2.Classes
 
 			foreach (XmlNode isbn2 in nodeList2)
 			{
-				ListeClassesTables.Add(isbn2.InnerText);
+				ListeClasses.Add(isbn2.InnerText);
 			}
 
-			return ListeClassesTables;
+			return ListeClasses;
 
 
 		}
@@ -64,6 +74,7 @@ namespace ConsoleApp2.Classes
 			int res = NomsClasses(doc, nsmgr).Count;
 			return res;
 		}
+		#endregion
 	}
 }
 

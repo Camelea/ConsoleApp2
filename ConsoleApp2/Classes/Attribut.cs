@@ -5,6 +5,7 @@ namespace ConsoleApp2.Classes
 {
 	public class Attribut
 	{
+		#region Attributs
 		public string Nom;
 		public string Type;
 		public string Description
@@ -12,7 +13,9 @@ namespace ConsoleApp2.Classes
 			get;
 			set;
 		}
+		#endregion
 
+		#region Constructeur
 		public Attribut(string nom, string type, string description)
 		{
 			this.Nom = nom;
@@ -20,6 +23,9 @@ namespace ConsoleApp2.Classes
 			this.Description = description;
 
 		}
+		#endregion
+
+		#region Méthodes 
 
 		public override string ToString()
 		{
@@ -81,6 +87,8 @@ namespace ConsoleApp2.Classes
 			}
 			return ListeAttributsTable;
 		}
+
+		#endregion
 
 
 	}

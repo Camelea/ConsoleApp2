@@ -33,7 +33,7 @@ namespace ConsoleApp2.WebMethodes
 
 		#endregion
 
-#region Méthodes
+		#region Méthodes
 
 		/// <summary>
 		/// Retourne une liste de noms des web méthodes présentes dans le fichier
