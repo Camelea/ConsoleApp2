@@ -171,23 +171,25 @@ namespace ConsoleApp2.Classes
 					{
 						if ((i < Classe.NombreClasses(doc, nsmgr) + 1 && cmp != NombreProprietesDynamiques(doc, nsmgr)[i]+1) || (i == Classe.NombreClasses(doc, nsmgr) + 1 && cmp != NombreProprietesDynamiques(doc, nsmgr)[i]))
 						{
-							string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following::w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" +i + "]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']]["+(cmp+1)+"]/following-sibling:: w:p [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following::w:p [ w:pPr / w:pStyle [@w:val='Heading2']]["+n+"]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']]["+cmp+2+"] / preceding-sibling::w:p )= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2]/following::w:p [ w:pPr / w:pStyle [@w:val='Heading2']]["+n+"]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']]["+(cmp+2)+"] / preceding-sibling::w:p)]";
-
+							
 							string xpath2 = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following::w:p [ w:pPr / w:pStyle [@w:val='Heading2']][1]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][1]/following :: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][3]
 				/following-sibling:: w:p
 				[count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following::w:p [ w:pPr / w:pStyle [@w:val='Heading2']][1]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][2] / preceding-sibling::w:p )= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2]/following::w:p [ w:pPr / w:pStyle [@w:val='Heading2']][1]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][2] / preceding-sibling::w:p)]";
 
-							nodeList2 = root.SelectNodes(xpath2, nsmgr);
+							string res = "";
+							
 
 							nodeList2 = root.SelectNodes(xpath2, nsmgr);
 
 							foreach (XmlNode isbn2 in nodeList2)
 							{
+								res=res + (isbn2.InnerText);
 
-								ListeDescriptionsProprietesDynamiquesClasse.Add(isbn2.InnerText);
+								
 							}
+							ListeDescriptionsProprietesDynamiquesClasse.Add(res);
 
-							
+
 						}
 
 						else if (i < Classe.NombreClasses(doc, nsmgr) + 1 && cmp != NombreProprietesDynamiques(doc, nsmgr)[i])
