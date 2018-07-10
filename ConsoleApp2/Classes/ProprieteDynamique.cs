@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml;
 
 namespace ConsoleApp2.Classes
@@ -23,15 +24,15 @@ namespace ConsoleApp2.Classes
 		/// <param name="typesRetour"></param>
 		/// <param name="description"></param>
 		/// <param name="algorithme"></param>
-		public ProprieteDynamique(string nom, List<TypeRetour> typesRetour, string description,string algorithme)
-	{
-		this.Nom = nom;
-		this.TypeRetour = typesRetour;
-		this.Description = description;
-		this.Algorithme = algorithme;
+		public ProprieteDynamique(string nom, List<TypeRetour> typesRetour, string description, string algorithme)
+		{
+			this.Nom = nom;
+			this.TypeRetour = typesRetour;
+			this.Description = description;
+			this.Algorithme = algorithme;
 
 
-	}
+		}
 		#endregion
 
 		#region Méthodes
@@ -48,7 +49,7 @@ namespace ConsoleApp2.Classes
 			XmlNodeList nodeList2;
 			XmlElement root = doc.DocumentElement;
 			List<List<string>> ListeProprietesDynamiquesClasses = new List<List<string>>();
-			
+
 			for (int i = 1; i < Classe.NombreClasses(doc, nsmgr) + 1; i++)
 
 			{
@@ -62,9 +63,9 @@ namespace ConsoleApp2.Classes
 					ListeProprietesDynamiquesClasse.Add(isbn2.InnerText);
 				}
 				ListeProprietesDynamiquesClasses.Add(ListeProprietesDynamiquesClasse);
-			
+
 			}
-			
+
 			return ListeProprietesDynamiquesClasses;
 
 
@@ -102,7 +103,8 @@ namespace ConsoleApp2.Classes
 			XmlElement root = doc.DocumentElement;
 			List<string> ListeDescriptionsProprietesDynamiquesClasse = new List<string>();
 			var n = 1;
-			for (int i = 1; i < Classe.NombreClasses(doc, nsmgr) + 1; i++){
+			for (int i = 1; i < Classe.NombreClasses(doc, nsmgr) + 1; i++)
+			{
 
 				if (NombreProprietesDynamiques(doc, nsmgr)[i-1] == 0)
 				{
@@ -115,9 +117,9 @@ namespace ConsoleApp2.Classes
 				else
 				{
 
-					for (int cmp = 1; cmp < NombreProprietesDynamiques(doc, nsmgr)[i] + 1; cmp++)
+					for (int cmp = 0; cmp < NombreProprietesDynamiques(doc, nsmgr)[i] + 1; cmp++)
 					{
-						string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + cmp + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][1] / following-sibling::w:p  [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + cmp + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][2] / preceding-sibling::w:p)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + cmp + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][2] / preceding-sibling::w:p)]";
+						string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + (cmp +1) +"] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][1] / following-sibling::w:p  [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + (cmp + 1)+"] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][2] / preceding-sibling::w:p)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + (cmp +1)+ "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][2] / preceding-sibling::w:p)]";
 
 						nodeList2 = root.SelectNodes(xpath, nsmgr);
 
@@ -136,11 +138,101 @@ namespace ConsoleApp2.Classes
 
 
 		}
+
+
+		/// <summary>
+		/// retourne les descriptions des proprietes dynamiques des classes 
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
+		public static List<string> AlgorithmesProprietesDynamiquesClasses(XmlDocument doc, XmlNamespaceManager nsmgr)
+		{
+
+			XmlNodeList nodeList2;
+			XmlElement root = doc.DocumentElement;
+			List<string> ListeDescriptionsProprietesDynamiquesClasse = new List<string>();
+			var n = 1;
+			for (int i = 1; i < Classe.NombreClasses(doc, nsmgr) + 1; i++)
+			{
+
+				if (NombreProprietesDynamiques(doc, nsmgr)[i - 1] == 0)
+				{
+
+					ListeDescriptionsProprietesDynamiquesClasse.Add("None");
+
+
+				}
+
+				else
+				{
+
+					for (  int cmp = 0; cmp < NombreProprietesDynamiques(doc, nsmgr)[i] + 1; cmp++)
+					{
+						if ((i < Classe.NombreClasses(doc, nsmgr) + 1 && cmp != NombreProprietesDynamiques(doc, nsmgr)[i]+1) || (i == Classe.NombreClasses(doc, nsmgr) + 1 && cmp != NombreProprietesDynamiques(doc, nsmgr)[i]))
+						{
+							string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following::w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" +i + "]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']]["+(cmp+1)+"]/following-sibling:: w:p [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following::w:p [ w:pPr / w:pStyle [@w:val='Heading2']]["+n+"]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']]["+cmp+2+"] / preceding-sibling::w:p )= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2]/following::w:p [ w:pPr / w:pStyle [@w:val='Heading2']]["+n+"]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']]["+(cmp+2)+"] / preceding-sibling::w:p)]";
+
+							string xpath2 = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following::w:p [ w:pPr / w:pStyle [@w:val='Heading2']][1]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][1]/following :: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][3]
+				/following-sibling:: w:p
+				[count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following::w:p [ w:pPr / w:pStyle [@w:val='Heading2']][1]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][2] / preceding-sibling::w:p )= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2]/following::w:p [ w:pPr / w:pStyle [@w:val='Heading2']][1]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][2] / preceding-sibling::w:p)]";
+
+							nodeList2 = root.SelectNodes(xpath2, nsmgr);
+
+							nodeList2 = root.SelectNodes(xpath2, nsmgr);
+
+							foreach (XmlNode isbn2 in nodeList2)
+							{
+
+								ListeDescriptionsProprietesDynamiquesClasse.Add(isbn2.InnerText);
+							}
+
+							
+						}
+
+						else if (i < Classe.NombreClasses(doc, nsmgr) + 1 && cmp != NombreProprietesDynamiques(doc, nsmgr)[i])
+						{
+
+
+							string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + (cmp + 1) + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][3] / following-sibling::w:p  [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][4] / preceding-sibling::w:p)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][4]  / preceding-sibling::w:p)]";
+
+							nodeList2 = root.SelectNodes(xpath, nsmgr);
+
+							foreach (XmlNode isbn2 in nodeList2)
+							{
+
+								ListeDescriptionsProprietesDynamiquesClasse.Add(isbn2.InnerText);
+							}
+
+
+						}
+
+						else
+						{
+
+							string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + (cmp + 1) + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][3] / following-sibling::w:p  [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + (n + 1) + "] / preceding-sibling::w:p)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + (n + 1) + "] / preceding-sibling::w:p)]";
+
+							nodeList2 = root.SelectNodes(xpath, nsmgr);
+
+							foreach (XmlNode isbn2 in nodeList2)
+							{
+
+								ListeDescriptionsProprietesDynamiquesClasse.Add(isbn2.InnerText);
+							}
+
+						}
+
+					}
+				}
+				n++;
+			}
+
+			return ListeDescriptionsProprietesDynamiquesClasse;
+
+
+		}
 		#endregion
 
 
 	}
 }
-
-
-
