@@ -60,14 +60,14 @@ namespace ConsoleApp2
 
 			var sequences = ProprieteDynamique.AlgorithmesProprietesDynamiquesClasses(doc, nsmgr);
 			List<string> resultat = sequences;
-			foreach (string x in resultat)
+				foreach (string y in resultat)
 			{
-			
-					Console.WriteLine(x.ToString());
 
+					Console.WriteLine(y.ToString());
+			}
 				
 
-			}
+			
 
 			//	Console.ReadKey();
 			//}
