@@ -9,7 +9,7 @@ namespace ConsoleApp2.Classes
 		#region Attributs 
 
 		public string Nom;
-		public List<TypeRetour> TypeRetour;
+		public List<TypeRetour> TypesRetour;
 		public string Description;
 		public string Algorithme;
 
@@ -27,7 +27,7 @@ namespace ConsoleApp2.Classes
 		public ProprieteDynamique(string nom, List<TypeRetour> typesRetour, string description, string algorithme)
 		{
 			this.Nom = nom;
-			this.TypeRetour = typesRetour;
+			this.TypesRetour = typesRetour;
 			this.Description = description;
 			this.Algorithme = algorithme;
 
@@ -36,6 +36,11 @@ namespace ConsoleApp2.Classes
 		#endregion
 
 		#region Méthodes
+
+		public override string ToString()
+		{
+			return (this.Nom +  this.Description + this.Algorithme);
+		}
 
 		/// <summary>
 		/// Retourne la liste des noms des proprietes dynamiques des classes présentes dans le fichier
@@ -146,7 +151,7 @@ namespace ConsoleApp2.Classes
 
 
 		/// <summary>
-		/// retourne les descriptions des proprietes dynamiques des classes 
+		/// retourne les algorithmes des proprietes dynamiques des classes 
 		/// </summary>
 		/// <param name="doc"></param>
 		/// <param name="nsmgr"></param>
@@ -239,6 +244,36 @@ namespace ConsoleApp2.Classes
 
 
 		}
+
+		public static List<List<ProprieteDynamique>> ProprietesDynamiques(XmlDocument doc, XmlNamespaceManager nsmgr){
+			List<List<ProprieteDynamique>> proprietesDynamiques = new List<List<ProprieteDynamique>>();
+			List<List<string>>  nomsProprietesDynamiques = NomsProprietesDynamiquesClasses( doc, nsmgr);
+			List<string> descriptionsProprietesDynamiques = DescriptionsProprietesDynamiquesClasses( doc, nsmgr);
+			List<string> algorithmesProprietesDynamiques = AlgorithmesProprietesDynamiquesClasses(doc, nsmgr);
+			List<List<TypeRetour>> typesRetour = TypeRetour.TypeRetourProprietesDynamiquesClasses(doc, nsmgr);
+			for (int i = 1; i < Classe.NombreClasses(doc, nsmgr) + 1; i++)
+			{
+				if (NombreProprietesDynamiques(doc, nsmgr)[i - 1] != 0)
+				{
+					List<ProprieteDynamique> proprietesDynamiquesClasse = new List<ProprieteDynamique>();
+
+					for (int cmp = 0; cmp < NombreProprietesDynamiques(doc, nsmgr)[i - 1]; cmp++)
+					{
+						
+						proprietesDynamiquesClasse.Add(new ProprieteDynamique(nomsProprietesDynamiques[i-1][cmp], typesRetour[cmp], descriptionsProprietesDynamiques[cmp], algorithmesProprietesDynamiques[cmp]));
+
+					}
+					proprietesDynamiques.Add(proprietesDynamiquesClasse);
+				}
+
+				
+
+
+			}
+			return proprietesDynamiques;
+		}
+
+
 		#endregion
 
 

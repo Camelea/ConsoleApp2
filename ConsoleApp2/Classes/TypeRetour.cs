@@ -24,6 +24,11 @@ namespace ConsoleApp2.Classes
 
 		#region Méthodes
 
+		public  override string ToString()
+		{
+			return (this.Type + " " + this.Description);
+		}
+
 		/// <summary>
 		/// retourne la liste des type de retour des proprietes dynamiques des classes 
 		/// </summary>
@@ -37,33 +42,41 @@ namespace ConsoleApp2.Classes
 			XmlElement root = doc.DocumentElement;
 			List<List<string>> ListeTypesRetourClasses = new List<List<string>>();
 			List<List<TypeRetour>> TypesRetourClasses = new List<List<TypeRetour>>();
-			var n = 1;
+			
 			for (int i = 1; i < Classe.NombreClasses(doc, nsmgr) + 1; i++)
 			{
 
-
-				for (int cmp = 1; cmp <ProprieteDynamique.NombreProprietesDynamiques(doc, nsmgr)[i] + 1; cmp++)
+				if (ProprieteDynamique.NombreProprietesDynamiques(doc, nsmgr)[i - 1] != 0)
 				{
-					string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + cmp + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][2] / following-sibling::w:p  [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + cmp + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][3] / preceding-sibling::w:p)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + cmp + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][3] / preceding-sibling::w:p)]";
+					
+					for (int cmp = 0; cmp < ProprieteDynamique.NombreProprietesDynamiques(doc, nsmgr)[i-1]; cmp++)
+				{
+
+						ListeTypesRetourClasses.Add(new List<string>());
+					string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']]["+i+"] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']]["+(cmp+1)+"] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][2] / following-sibling::w:tbl / w:tr /w:tc   [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']]["+(cmp+1)+"] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][3] / preceding-sibling::w:tbl / w:tr /w:tc )= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']]["+i+"] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']]["+(cmp+1)+"] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][3] / preceding-sibling::w:tbl / w:tr /w:tc )]";
+
 
 					nodeList2 = root.SelectNodes(xpath, nsmgr);
-
-					foreach (XmlNode isbn2 in nodeList2)
+						
+						foreach (XmlNode isbn2 in nodeList2)
 					{
-
-						ListeTypesRetourClasses[n].Add(isbn2.InnerText);
+							
+						ListeTypesRetourClasses[cmp].Add(isbn2.InnerText);
 					}
-					
-				}
-				TypesRetourClasses.Add(ListeATypeRetour(ListeTypesRetourClasses[n]));
-				n++;
+						TypesRetourClasses.Add(ListeATypeRetour(ListeTypesRetourClasses[cmp]));
+						
+					}
+				
+			
 
 			}
+		}
 			return TypesRetourClasses;
 
 
 
 		}
+
 
 
 		/// <summary>
