@@ -170,7 +170,7 @@ namespace ConsoleApp2.Classes
 				foreach (XmlNode isbn2 in nodeList2)
 				{
 					if (isbn2.InnerText != "")
-					{
+					{	
 						ListeWebMethodes[i-1].Add(isbn2.InnerText.Trim());
 					}
 				}
@@ -180,6 +180,56 @@ namespace ConsoleApp2.Classes
 			return ListeParametresEntrantsWebMethodes;
 
 		}
+		#endregion
+
+		#region Méthodes Proprietes Dynamiques
+		/// <summary>
+		/// retourne la liste des type de retour des proprietes dynamiques des classes 
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
+		public static List<List<ParametreEntrant>> ParametresEntrantsMethodesClasses(XmlDocument doc, XmlNamespaceManager nsmgr)
+		{
+
+			XmlNodeList nodeList2;
+			XmlElement root = doc.DocumentElement;
+			List<List<string>> ListeMethodesClasses = new List<List<string>>();
+			List<List<ParametreEntrant>> ParametresEntrantsMethodesClasses = new List<List<ParametreEntrant>>();
+
+			for (int i = 1; i < Classe.NombreClasses(doc, nsmgr) + 1; i++)
+			{
+
+				if (Methode.NombreMethodesClasse(doc, nsmgr)[i - 1] != 0)
+				{
+
+					for (int cmp = 0; cmp < Methode.NombreMethodesClasse(doc, nsmgr)[i - 1]; cmp++)
+					{
+
+						ListeMethodesClasses.Add(new List<string>());
+						string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][4] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + (cmp + 1) + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][2] / following-sibling:: w:tbl / w:tr /w:tc  [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][4] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + (cmp + 1) + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][3] / preceding-sibling::w:tbl / w:tr /w:tc)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][4] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][" + (cmp + 1) + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][3] / preceding-sibling::w:tbl / w:tr /w:tc)]";
+
+
+						nodeList2 = root.SelectNodes(xpath, nsmgr);
+
+						foreach (XmlNode isbn2 in nodeList2)
+						{
+							if (isbn2.InnerText != "")
+							{
+								ListeMethodesClasses[cmp].Add(isbn2.InnerText.Trim());
+							}
+						}
+						ParametresEntrantsMethodesClasses.Add(ListeAParametresEntrants(ListeMethodesClasses[cmp]));
+
+					}
+
+				}
+			}
+			return ParametresEntrantsMethodesClasses;
+
+		}
+
+
 		#endregion
 
 		#endregion

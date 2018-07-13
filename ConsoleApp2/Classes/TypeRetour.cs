@@ -66,17 +66,12 @@ namespace ConsoleApp2.Classes
 						TypesRetourClasses.Add(ListeATypeRetour(ListeTypesRetourClasses[cmp]));
 						
 					}
-				
-			
 
 			}
 		}
 			return TypesRetourClasses;
 
-
-
 		}
-
 
 
 		/// <summary>
