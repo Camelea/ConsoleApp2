@@ -6,7 +6,7 @@ namespace ConsoleApp2.Classes
 	public class Methode
 	{
 		#region Attributs
-
+		public string Nom;
 		public string Description;
 		public List<ParametreEntrant> ParametresEntrants;
 		public string Algorithme;
@@ -16,8 +16,9 @@ namespace ConsoleApp2.Classes
 
 		#region Constructeur 
 
-		public Methode(string description, List<ParametreEntrant> parametresEntrants, string algorithme,List<TypeRetour> typesRetour)
+		public Methode(string nom,string description, List<ParametreEntrant> parametresEntrants, string algorithme,List<TypeRetour> typesRetour)
 		{
+			this.Nom = nom;
 			this.Description = description;
 			this.ParametresEntrants = parametresEntrants;
 			this.Algorithme = algorithme;
@@ -27,6 +28,13 @@ namespace ConsoleApp2.Classes
 		#endregion
 
 		#region Méthodes
+
+		public override string ToString()
+		{
+			return (this.Nom + this.Description + this.Algorithme);
+		}
+
+
 		/// <summary>
 		/// Retourne la liste des noms des méthodes des classes présentes dans le fichier
 		/// </summary>
@@ -232,7 +240,42 @@ namespace ConsoleApp2.Classes
 
 
 
+		/// <summary>
+		/// Fonction qui renvoie la liste de toutes les prorietes dynamiques des classes 
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
+		public static List<List<Methode>> Methodes(XmlDocument doc, XmlNamespaceManager nsmgr)
+		{
+			List<List<Methode>> proprietesDynamiques = new List<List<Methode>>();
+			List<List<string>> nomsMethodes = NomsMethodesClasses(doc, nsmgr);
+			List<string> descriptionsMethodes = DescriptionsMethodesClasses(doc, nsmgr);
+			List<string> algorithmesMethodes = AlgorithmesMethodesClasses(doc, nsmgr);
+			List<List<TypeRetour>> typesRetour = TypeRetour.TypeRetourMethodesClasses(doc, nsmgr);
+			List<List<ParametreEntrant>> parametresEntrants = ParametreEntrant.ParametresEntrantsMethodesClasses(doc, nsmgr);
+			for (int i = 1; i < Classe.NombreClasses(doc, nsmgr) + 1; i++)
+			{
+				if (NombreMethodesClasse(doc, nsmgr)[i - 1] != 0)
+				{
+					List<Methode> methodesClasse = new List<Methode>();
 
+					for (int cmp = 0; cmp < NombreMethodesClasse(doc, nsmgr)[i - 1]; cmp++)
+					{
+
+						methodesClasse.Add(new Methode(nomsMethodes[i - 1][cmp], descriptionsMethodes[cmp], parametresEntrants[cmp], algorithmesMethodes[cmp],typesRetour[cmp]));
+
+
+					}
+					proprietesDynamiques.Add(methodesClasse);
+				}
+
+
+
+
+			}
+			return proprietesDynamiques;
+		}
 
 		#endregion
 	}

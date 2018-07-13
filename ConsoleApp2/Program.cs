@@ -58,11 +58,12 @@ namespace ConsoleApp2
 			nsmgr.AddNamespace("wps", "http://schemas.microsoft.com/office/word/2010/wordprocessingShape");
 			nsmgr.AddNamespace("mc: Ignorable", "w14 w15 w16se wp14");
 
-			var sequences = TypeRetour.TypeRetourMethodesClasses(doc, nsmgr);
-			List<List<TypeRetour>> resultat = sequences;
-			foreach (List<TypeRetour> y in resultat)
+			var sequences = Methode.Methodes(doc, nsmgr);
+			List<List<Methode>> resultat = sequences;
+			foreach (List<Methode> y in resultat)
 			{
-				foreach (TypeRetour x in y  ) {
+				foreach (Methode x in y)
+				{
 
 					Console.WriteLine(x.ToString());
 				}

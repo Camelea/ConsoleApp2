@@ -245,6 +245,13 @@ namespace ConsoleApp2.Classes
 
 		}
 
+
+		/// <summary>
+		/// Fonction qui renvoie la liste de toutes les prorietes dynamiques des classes 
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
 		public static List<List<ProprieteDynamique>> ProprietesDynamiques(XmlDocument doc, XmlNamespaceManager nsmgr){
 			List<List<ProprieteDynamique>> proprietesDynamiques = new List<List<ProprieteDynamique>>();
 			List<List<string>>  nomsProprietesDynamiques = NomsProprietesDynamiquesClasses( doc, nsmgr);
