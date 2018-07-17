@@ -26,7 +26,10 @@ namespace ConsoleApp2.Classes
 
 		#region Méthodes
 
-
+		public override string ToString()
+		{
+			return ("description" + "\n" + this.Description+ "\n" + "Algo" + "\n" + this.Algorithme);
+		}
 
 		/// <summary>
 		/// Fonction qui permet de recuperer la liste des descriptions des contraintes d'initialisation de toutes les classes 
@@ -38,24 +41,33 @@ namespace ConsoleApp2.Classes
 		{
 			XmlNodeList nodeList2;
 			XmlElement root = doc.DocumentElement;
-			List<string> ListeSequencesTables = new List<string>();
+			List<string> ListeDescriptionsContraintesInitialisationClasses = new List<string>();
 
 
 			int n = 1;
 			for (int i = 1; i < Classe.NombreClasses(doc, nsmgr) + 1; i++)
 
 			{
-				string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][4]/ following-sibling::w:p [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][5]/ preceding-sibling::w:p)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][5]/preceding-sibling::w:p)]";
+				string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][2]/following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][1]/ following-sibling::w:p [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][2]/following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][2]  /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][2]/ preceding-sibling::w:p)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] / following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][2]/following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][2]  /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][2]/preceding-sibling::w:p)]";
+				string xpath2 = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][2]/following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][1]/ following-sibling::w:p [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + (n+1) + "]/ preceding-sibling::w:p)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + (n+1) + "] /preceding-sibling::w:p)]";
 
-				nodeList2 = root.SelectNodes(xpath, nsmgr);
+				string xpath3 = xpath + "[count(. |" + xpath2 + ")" + "= count(" + xpath2 + ")]";
+				nodeList2 = root.SelectNodes(xpath3, nsmgr);
 				foreach (XmlNode isbn2 in nodeList2)
 				{
-					ListeSequencesTables.Add(isbn2.InnerText);
+					ListeDescriptionsContraintesInitialisationClasses.Add(isbn2.InnerText);
 				}
+				if (ListeDescriptionsContraintesInitialisationClasses.Count < i)
+				{
+					ListeDescriptionsContraintesInitialisationClasses.Add("none");
+				}
+			
 				n = n + 1;
 			}
 
-			return ListeSequencesTables;
+		
+
+			return ListeDescriptionsContraintesInitialisationClasses;
 		}
 
 		/// <summary>
@@ -68,24 +80,38 @@ namespace ConsoleApp2.Classes
 		{
 			XmlNodeList nodeList2;
 			XmlElement root = doc.DocumentElement;
-			List<string> ListeSequencesTables = new List<string>();
+			List<string> ListeAlgorithmesContraintesInitialisationClasses = new List<string>();
 
 
 			int n = 1;
 			for (int i = 1; i < Classe.NombreClasses(doc, nsmgr) + 1; i++)
 
 			{
-				string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][6]/ following-sibling::w:p [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/ preceding-sibling::w:p)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][1] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/preceding-sibling::w:p)]";
+				string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] / following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][2]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][2]/following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][3]/ following-sibling::w:p [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/ preceding-sibling::w:p)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/preceding-sibling::w:p)]";
 
-				nodeList2 = root.SelectNodes(xpath, nsmgr);
+				string xpath2 = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + n + "] / following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][2]/ following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][2]/following:: w:p [ w:pPr / w:pStyle [@w:val='Heading5']][3]/ following-sibling::w:p [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + (n + 1) + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/ preceding-sibling::w:p)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][2] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + (n +1)+ "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/preceding-sibling::w:p)]";
+
+				string xpath3 = xpath + "[count(. |" + xpath2 + ")" + "= count(" + xpath2 + ")]";
+
+				var res = " ";
+				nodeList2 = root.SelectNodes(xpath3, nsmgr);
 				foreach (XmlNode isbn2 in nodeList2)
 				{
-					ListeSequencesTables.Add(isbn2.InnerText);
+					 res = res + (isbn2.InnerText);
+					
+				}if (res != " " ){
+					ListeAlgorithmesContraintesInitialisationClasses.Add(res);
 				}
+				if (res == " ")
+				{
+					 ListeAlgorithmesContraintesInitialisationClasses.Add("none");
+				}
+
 				n = n + 1;
 			}
 
-			return ListeSequencesTables;
+
+			return ListeAlgorithmesContraintesInitialisationClasses;
 		}
 
 		/// <summary>
@@ -96,7 +122,7 @@ namespace ConsoleApp2.Classes
 		/// <returns></returns>
 		public static List<ConstructeurInitialisation> ConstructeursInitialisation(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
-			List<List<ParametreEntrant>> parametresEntrants = ParametreEntrant.GetParametresEntrantsConstructeurParDeafutClasse(doc, nsmgr);
+			List<List<ParametreEntrant>> parametresEntrants = ParametreEntrant.GetParametresEntrantsConstructeurParDefautClasse(doc, nsmgr);
 			List<ConstructeurInitialisation> constructeursInitialisation = new List<ConstructeurInitialisation>();
 			List<string> descriptions = GetDescriptionContrainteInitialisation(doc, nsmgr);
 			List<string> algorithmes = GetAlgorithmeContrainteInitialisation(doc, nsmgr);

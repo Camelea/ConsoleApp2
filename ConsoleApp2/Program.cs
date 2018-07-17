@@ -58,19 +58,27 @@ namespace ConsoleApp2
 			nsmgr.AddNamespace("wps", "http://schemas.microsoft.com/office/word/2010/wordprocessingShape");
 			nsmgr.AddNamespace("mc: Ignorable", "w14 w15 w16se wp14");
 
-			var sequences = Methode.Methodes(doc, nsmgr);
-			List<List<Methode>> resultat = sequences;
-			foreach (List<Methode> y in resultat)
+			//var sequences = ConstructeurInitialisation.GetDescriptionContrainteInitialisation(doc, nsmgr);
+			//List<string> resultat = sequences;
+			//foreach (string y in resultat)
+			//{
+
+			//	Console.WriteLine(y.ToString());
+
+			//}
+
+
+			var sequences = Classe.Classes(doc, nsmgr);
+			List<Classe> resultat = sequences;
+			foreach (Classe y in resultat)
 			{
-				foreach (Methode x in y)
-				{
 
-					Console.WriteLine(x.ToString());
-				}
+				Console.WriteLine(y.ToString());
+
 			}
-				
 
-			
+
+
 
 			//	Console.ReadKey();
 			//}
@@ -110,7 +118,7 @@ namespace ConsoleApp2
 
 			//var col2 = Table.Tables(doc, nsmgr);
 			//foreach (Table l in col2)
-				
+
 			//	{
 			//	foreach (Donnee cl in l.Donnees)
 			//	{
@@ -121,10 +129,10 @@ namespace ConsoleApp2
 			//	}
 
 
-				//}
-				//Console.ReadKey();
+			//}
+			//Console.ReadKey();
 
-			
+
 			Console.ReadKey();
 		}
 

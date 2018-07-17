@@ -30,7 +30,7 @@ namespace ConsoleApp2.Classes
 		/// <param name="doc"></param>
 		/// <param name="nsmgr"></param>
 		/// <returns></returns>
-		public static List<Constructeur> Tables(XmlDocument doc, XmlNamespaceManager nsmgr)
+		public static List<Constructeur> Constructeurs(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
 			List<ConstructeurParDefaut> constructeursParDefaut = ConstructeurParDefaut.ConstructeursParDefaut(doc, nsmgr);
 			List<ConstructeurInitialisation> constructeursInitialisation = ConstructeurInitialisation.ConstructeursInitialisation(doc, nsmgr);

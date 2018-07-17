@@ -14,7 +14,7 @@ namespace ConsoleApp2.Classes
 
 		public string Nom;
 		public List<Attribut> Attributs;
-		public List<Constructeur> Constructeurs;
+		public Constructeur Constructeurs;
 		public List<ProprieteDynamique> ProprietesDynamiques;
 		public List<Methode> Methodes;
 
@@ -22,7 +22,7 @@ namespace ConsoleApp2.Classes
 
 		#region Constructeur 
 
-		public Classe(string nom, List<Attribut> attributs, List<Constructeur> constructeurs, List<ProprieteDynamique> proprietesDynamiques, List<Methode> methodes)
+		public Classe(string nom, List<Attribut> attributs, Constructeur constructeurs, List<ProprieteDynamique> proprietesDynamiques, List<Methode> methodes)
 		{
 			this.Nom = nom;
 			this.Attributs = attributs;
@@ -30,10 +30,41 @@ namespace ConsoleApp2.Classes
 			this.ProprietesDynamiques = proprietesDynamiques;
 			this.Methodes = methodes;
 		}
+		public Classe(string nom, List<Attribut> attributs, Constructeur constructeurs)
+		{
+			this.Nom = nom;
+			this.Attributs = attributs;
+			this.Constructeurs = constructeurs;
+
+		}
+
+		public Classe(string nom, List<Attribut> attributs, Constructeur constructeurs, List<ProprieteDynamique> proprietesDynamiques)
+		{
+			this.Nom = nom;
+			this.Attributs = attributs;
+			this.Constructeurs = constructeurs;
+			this.ProprietesDynamiques = proprietesDynamiques;
+		}
+
+		public Classe(string nom, List<Attribut> attributs, Constructeur constructeurs,  List<Methode> methodes)
+		{
+			this.Nom = nom;
+			this.Attributs = attributs;
+			this.Constructeurs = constructeurs;
+			this.Methodes = methodes;
+		}
+
+
+
 
 		#endregion
 
 		#region Méthodes
+
+		public override string ToString()
+		{
+			return (Nom );
+		}
 
 		/// <summary>
 		/// Retourne la liste de noms des classes présentes dans le fichier
@@ -73,6 +104,47 @@ namespace ConsoleApp2.Classes
 		{
 			int res = NomsClasses(doc, nsmgr).Count;
 			return res;
+		}
+
+		public static List<Classe> Classes (XmlDocument doc, XmlNamespaceManager nsmgr)
+		{
+			List<Classe> classes = new List<Classe>();
+			List<string> noms = NomsClasses(doc, nsmgr);
+			List<List<Attribut>> attributs = Attribut.GetAttributsClasses(doc, nsmgr);
+			List<Constructeur> constructeurs = Constructeur.Constructeurs(doc, nsmgr);
+			List<List<Methode>> methodes = Methode.Methodes(doc, nsmgr);
+			List<List<ProprieteDynamique>> proprietesDynamiques = ProprieteDynamique.ProprietesDynamiques(doc, nsmgr);
+
+			for (int i = 1; i < Classe.NombreClasses(doc, nsmgr) + 1; i++)
+			{
+				 if (ProprieteDynamique.NombreProprietesDynamiques(doc, nsmgr)[i - 1] == 0 && Methode.NombreMethodesClasse(doc, nsmgr)[i - 1] == 0)
+				{
+				classes.Add(new Classe(noms[i - 1], attributs[i - 1], constructeurs[i - 1]));
+
+				}
+
+				if (ProprieteDynamique.NombreProprietesDynamiques(doc, nsmgr)[i - 1] != 0 && Methode.NombreMethodesClasse(doc, nsmgr)[i - 1] != 0)
+				{
+
+					classes.Add(new Classe(noms[i - 1], attributs[i - 1], constructeurs[i - 1], proprietesDynamiques[i - 1], methodes[i - 1]));
+				}
+
+				if (ProprieteDynamique.NombreProprietesDynamiques(doc, nsmgr)[i - 1] != 0 && Methode.NombreMethodesClasse(doc, nsmgr)[i - 1] == 0)
+				{
+
+					classes.Add(new Classe(noms[i - 1], attributs[i - 1], constructeurs[i - 1], proprietesDynamiques[i - 1]));
+				}
+
+				 if (ProprieteDynamique.NombreProprietesDynamiques(doc, nsmgr)[i - 1] == 0 && Methode.NombreMethodesClasse(doc, nsmgr)[i - 1] != 0)
+				{
+
+					classes.Add(new Classe(noms[i - 1], attributs[i - 1], constructeurs[i - 1], methodes[i - 1]));
+				}
+
+
+			}
+			return classes;
+
 		}
 		#endregion
 	}
