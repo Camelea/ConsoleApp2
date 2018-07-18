@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ConsoleApp2.Objets_Parametres;
+using System.Collections.Generic;
 using System.Xml;
 
 namespace ConsoleApp2.Classes
@@ -32,6 +33,7 @@ namespace ConsoleApp2.Classes
 			return (Nom + " " + Type);
 
 		}
+		#region Classe
 
 		/// <summary>
 		/// Renvoie la liste des informaions de colonnes de chaque table
@@ -87,6 +89,53 @@ namespace ConsoleApp2.Classes
 			}
 			return ListeAttributsTable;
 		}
+		#endregion
+
+		#region Objets Parametre 
+
+		/// <summary>
+		/// Renvoie la liste des attributs de tous les objets parametre du fichier
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
+		public static List<List<Attribut>> AttributsObjetsParametres(XmlDocument doc, XmlNamespaceManager nsmgr)
+		{
+			XmlNodeList nodeList2;
+			XmlElement root = doc.DocumentElement;
+			List<List<string>> ListeinformationsAttributsObjetsParametres = new List<List<string>>();
+			List<List<Attribut>> ListeAttributsClasses = new List<List<Attribut>>();
+
+
+			for (int i = 1; i < ObjetParametre.NombreObjetsParametre(doc, nsmgr) + 1; i++)
+
+			{
+
+				ListeinformationsAttributsObjetsParametres.Add(new List<string>());
+				string xpath = @"//w:p [ w:pPr / w:pStyle [@w:val='Heading1']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "]/ following-sibling::w:tbl / w:tr /w:tc [count(. | //w:p [ w:pPr / w:pStyle [@w:val='Heading1']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + (i + 1) + "]/ preceding-sibling::w:tbl / w:tr /w:tc)= count(//w:p [ w:pPr / w:pStyle [@w:val='Heading1']][3] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + (i + 1) + "]/preceding-sibling::w:tbl / w:tr /w:tc)]";
+
+
+				nodeList2 = root.SelectNodes(xpath, nsmgr);
+
+
+				foreach (XmlNode isbn2 in nodeList2)
+				{
+					ListeinformationsAttributsObjetsParametres[i-1].Add(isbn2.InnerText);
+
+				}
+				ListeAttributsClasses.Add(ListeAAttributs(ListeinformationsAttributsObjetsParametres[i-1]));
+
+			}
+			return ListeAttributsClasses;
+
+		}
+
+		
+
+
+
+
+		#endregion
 
 		#endregion
 

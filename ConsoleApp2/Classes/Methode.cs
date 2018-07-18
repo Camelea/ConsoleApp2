@@ -213,6 +213,7 @@ namespace ConsoleApp2.Classes
 
 
 
+
 						if (i == Classe.NombreClasses(doc, nsmgr) && cmp == NombreMethodesClasse(doc, nsmgr)[i - 1]-1)
 						{
 

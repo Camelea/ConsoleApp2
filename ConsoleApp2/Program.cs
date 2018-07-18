@@ -1,5 +1,6 @@
 ﻿
 using ConsoleApp2.Classes;
+using ConsoleApp2.Objets_Parametres;
 using ConsoleApp2.Tables;
 using ConsoleApp2.WebMethodes;
 using System;
@@ -68,13 +69,14 @@ namespace ConsoleApp2
 			//}
 
 
-			var sequences = Classe.Classes(doc, nsmgr);
-			List<Classe> resultat = sequences;
-			foreach (Classe y in resultat)
-			{
+			var sequences =Attribut.AttributsObjetsParametres(doc, nsmgr);
+			List<List<Attribut>> resultat = sequences;
+			foreach (List<Attribut> y in resultat)
+			{	foreach (Attribut x in y) {
 
-				Console.WriteLine(y.ToString());
 
+					Console.WriteLine(x.ToString());
+				}
 			}
 
 
@@ -135,6 +137,7 @@ namespace ConsoleApp2
 
 			Console.ReadKey();
 		}
+
 
 
 

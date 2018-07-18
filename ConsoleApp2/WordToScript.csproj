@@ -52,12 +52,13 @@
     <Reference Include="XamlBuildTask" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Attribut.cs" />
+    <Compile Include="Attribut.cs" />
     <Compile Include="Classes\Classe.cs" />
     <Compile Include="Classes\Constructeur.cs" />
     <Compile Include="Classes\ConstructeurInitialisation.cs" />
     <Compile Include="Classes\ConstructeurParDefaut.cs" />
     <Compile Include="Classes\Methode.cs" />
+    <Compile Include="ObjetsParametres\ObjetParametre.cs" />
     <Compile Include="ParametreEntrant.cs" />
     <Compile Include="Classes\ProprieteDynamique.cs" />
     <Compile Include="Classes\TypeRetour.cs" />
