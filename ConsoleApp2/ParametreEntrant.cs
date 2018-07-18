@@ -1,4 +1,5 @@
-﻿using ConsoleApp2.WebMethodes;
+﻿using ConsoleApp2.ServicesExternes;
+using ConsoleApp2.WebMethodes;
 using System.Collections.Generic;
 using System.Xml;
 
@@ -182,7 +183,46 @@ namespace ConsoleApp2.Classes
 		}
 		#endregion
 
-		#region Méthodes Proprietes Dynamiques
+		#region Services Externes
+		/// <summary>
+		/// Renvoie la liste des informations de parametres entrants des services externes
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
+		public static List<List<ParametreEntrant>> GetParametresEntrantsServiceExterne(XmlDocument doc, XmlNamespaceManager nsmgr)
+		{
+			XmlNodeList nodeList2;
+			XmlElement root = doc.DocumentElement;
+			List<List<string>> ListeServicesExternes = new List<List<string>>();
+			List<List<ParametreEntrant>> ListeParametresEntrantsServiceExterne = new List<List<ParametreEntrant>>();
+
+			for (int i = 2; i < ServiceExterne.NombreServicesExternes(doc, nsmgr) + 2; i++)
+			{
+
+				ListeServicesExternes.Add(new List<string>());
+				string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][2]/ following-sibling::w:tbl / w:tr /w:tc [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/ preceding-sibling::w:tbl / w:tr /w:tc)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/preceding-sibling::w:tbl / w:tr /w:tc)]";
+
+
+				nodeList2 = root.SelectNodes(xpath, nsmgr);
+
+
+				foreach (XmlNode isbn2 in nodeList2)
+				{
+
+						ListeServicesExternes[i - 2].Add(isbn2.InnerText);
+					
+				}
+				ListeParametresEntrantsServiceExterne.Add(ListeAParametresEntrants(ListeServicesExternes[i - 2]));
+
+			}
+			return ListeParametresEntrantsServiceExterne;
+
+		}
+
+		#endregion
+
+		#region Proprietes Dynamiques
 		/// <summary>
 		/// retourne la liste des type de retour des proprietes dynamiques des classes 
 		/// </summary>

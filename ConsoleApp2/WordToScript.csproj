@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attribut.cs" />
+    <Compile Include="ClassesPresentation\ClassePresentation.cs" />
     <Compile Include="Classes\Classe.cs" />
     <Compile Include="Classes\Constructeur.cs" />
     <Compile Include="Classes\ConstructeurInitialisation.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="ParametreEntrant.cs" />
     <Compile Include="Classes\ProprieteDynamique.cs" />
     <Compile Include="Classes\TypeRetour.cs" />
+    <Compile Include="ServicesExternes\ServiceExterne.cs" />
     <Compile Include="Tables\Donnes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,7 +77,7 @@
     <Compile Include="Tables\Index.cs" />
     <Compile Include="Tables\Sequence.cs" />
     <Compile Include="Tables\Table.cs" />
-    <Compile Include="WebMethodes\ParametreSortant.cs" />
+    <Compile Include="ParametreSortant.cs" />
     <Compile Include="WebMethodes\WebMethode.cs" />
   </ItemGroup>
   <ItemGroup>

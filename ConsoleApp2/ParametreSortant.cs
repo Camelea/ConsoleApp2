@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using ConsoleApp2.ServicesExternes;
+using System.Collections.Generic;
 using System.Xml;
 
 namespace ConsoleApp2.WebMethodes
 {
 	/// <summary>
-	/// Classe qui permet de crée et récupérér les Paraletres Sortants d'une web méthode
+	/// Classe qui permet de crée et récupérér les Parametres Sortants
 	/// </summary>
 	public class ParametreSortant
 	{
@@ -30,7 +31,7 @@ namespace ConsoleApp2.WebMethodes
 			return (this.Type + " " + this.Description);
 
 		}
-
+		#region Web Methodes
 		/// <summary>
 		/// Renvoie la liste des informations de parametres sortants des web methodes
 		/// </summary>
@@ -66,6 +67,48 @@ namespace ConsoleApp2.WebMethodes
 			return ListeParametresSortantsWebMethodes;
 
 		}
+		#endregion
+
+		#region Services Externes 
+
+		/// <summary>
+		/// Renvoie la liste des informations de parametres sortants des services externes 
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
+		public static List<List<ParametreSortant>> GetParametresSortantsServiceExterne(XmlDocument doc, XmlNamespaceManager nsmgr)
+		{
+			XmlNodeList nodeList2;
+			XmlElement root = doc.DocumentElement;
+			List<List<string>> ListeServicesExternes = new List<List<string>>();
+			List<List<ParametreSortant>> ListeParametresSortantsServicesExternes = new List<List<ParametreSortant>>();
+
+			for (int i = 2; i < ServiceExterne.NombreServicesExternes(doc, nsmgr) + 2; i++)
+			{
+
+				ListeServicesExternes.Add(new List<string>());
+				string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/ following-sibling::w:tbl / w:tr /w:tc [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][4]/ preceding-sibling::w:tbl / w:tr /w:tc)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][4]/preceding-sibling::w:tbl / w:tr /w:tc)]";
+
+
+				nodeList2 = root.SelectNodes(xpath, nsmgr);
+
+
+				foreach (XmlNode isbn2 in nodeList2)
+				{
+
+					ListeServicesExternes[(i - 1)].Add(isbn2.InnerText.Trim());
+
+				}
+				ListeParametresSortantsServicesExternes.Add(ListeAParametresSortants(ListeServicesExternes[(i - 1)]));
+
+			}
+			return ListeParametresSortantsServicesExternes;
+
+		}
+
+
+		#endregion
 
 		/// <summary>
 		/// Fonction qui prend une liste de string et la transforme en liste de parametres sortants

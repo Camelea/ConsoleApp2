@@ -1,4 +1,5 @@
-﻿using ConsoleApp2.Objets_Parametres;
+﻿using ConsoleApp2.ClassesPresentation;
+using ConsoleApp2.Objets_Parametres;
 using System.Collections.Generic;
 using System.Xml;
 
@@ -107,7 +108,7 @@ namespace ConsoleApp2.Classes
 			List<List<Attribut>> ListeAttributsClasses = new List<List<Attribut>>();
 
 
-			for (int i = 1; i < ObjetParametre.NombreObjetsParametre(doc, nsmgr) + 1; i++)
+			for (int i = 1; i < ObjetParametre.NombreClassesPresentation(doc, nsmgr) + 1; i++)
 
 			{
 
@@ -130,7 +131,54 @@ namespace ConsoleApp2.Classes
 
 		}
 
-		
+
+
+
+
+
+		#endregion
+
+
+		#region ClassePresentation
+
+		/// <summary>
+		/// Renvoie la liste des attributs de tous les objets parametre du fichier
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
+		public static List<List<Attribut>> AttributsClassePresentation(XmlDocument doc, XmlNamespaceManager nsmgr)
+		{
+			XmlNodeList nodeList2;
+			XmlElement root = doc.DocumentElement;
+			List<List<string>> ListeinformationsAttributsClassesPresentation = new List<List<string>>();
+			List<List<Attribut>> ListeAttributsClassesPresentation = new List<List<Attribut>>();
+
+
+			for (int i = 1; i < ClassePresentation.NombreClassesPresentation(doc, nsmgr) + 1; i++)
+
+			{
+
+				ListeinformationsAttributsClassesPresentation.Add(new List<string>());
+				string xpath = @"//w:p [ w:pPr / w:pStyle [@w:val='Heading1']][6] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "]/ following-sibling::w:tbl / w:tr /w:tc [count(. | //w:p [ w:pPr / w:pStyle [@w:val='Heading1']][6] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + (i + 1) + "]/ preceding-sibling::w:tbl / w:tr /w:tc)= count(//w:p [ w:pPr / w:pStyle [@w:val='Heading1']][6] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + (i + 1) + "]/preceding-sibling::w:tbl / w:tr /w:tc)]";
+
+
+				nodeList2 = root.SelectNodes(xpath, nsmgr);
+
+
+				foreach (XmlNode isbn2 in nodeList2)
+				{
+					ListeinformationsAttributsClassesPresentation[i - 1].Add(isbn2.InnerText);
+
+				}
+				ListeAttributsClassesPresentation.Add(ListeAAttributs(ListeinformationsAttributsClassesPresentation[i - 1]));
+
+			}
+			return ListeAttributsClassesPresentation;
+
+		}
+
+
 
 
 

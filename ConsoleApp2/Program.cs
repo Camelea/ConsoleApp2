@@ -1,6 +1,8 @@
 ﻿
 using ConsoleApp2.Classes;
+using ConsoleApp2.ClassesPresentation;
 using ConsoleApp2.Objets_Parametres;
+using ConsoleApp2.ServicesExternes;
 using ConsoleApp2.Tables;
 using ConsoleApp2.WebMethodes;
 using System;
@@ -69,14 +71,14 @@ namespace ConsoleApp2
 			//}
 
 
-			var sequences =Attribut.AttributsObjetsParametres(doc, nsmgr);
-			List<List<Attribut>> resultat = sequences;
-			foreach (List<Attribut> y in resultat)
-			{	foreach (Attribut x in y) {
+			var sequences =ServiceExterne.ServicesExternes(doc, nsmgr);
+			List<ServiceExterne> resultat = sequences;
+			foreach (ServiceExterne y in resultat)
+			{	
 
 
-					Console.WriteLine(x.ToString());
-				}
+					Console.WriteLine(y.ToString());
+				
 			}
 
 

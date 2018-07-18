@@ -63,7 +63,7 @@ namespace ConsoleApp2.Objets_Parametres
 		/// <param name="doc"></param>
 		/// <param name="nsmgr"></param>
 		/// <returns></returns>
-		public static int NombreObjetsParametre(XmlDocument doc, XmlNamespaceManager nsmgr)
+		public static int NombreClassesPresentation(XmlDocument doc, XmlNamespaceManager nsmgr)
 		{
 			int res = NomsObjetsParametre(doc, nsmgr).Count;
 			return res;
@@ -82,7 +82,7 @@ namespace ConsoleApp2.Objets_Parametres
 			XmlElement root = doc.DocumentElement;
 			List<string> ListeDescriptionsObjetsParametres = new List<string>();
 
-			for (int i = 1; i < NombreObjetsParametre(doc, nsmgr) + 1; i++)
+			for (int i = 1; i < NombreClassesPresentation(doc, nsmgr) + 1; i++)
 
 			{
 				var res = "";
@@ -99,7 +99,26 @@ namespace ConsoleApp2.Objets_Parametres
 		}
 
 
+		/// <summary>
+		/// Fonction qui permet de construire un objet parametre
+		/// </summary>
+		/// <param name="doc"></param>
+		/// <param name="nsmgr"></param>
+		/// <returns></returns>
+		public static List<ObjetParametre> ObjetsParametre(XmlDocument doc, XmlNamespaceManager nsmgr)
+		{
+			List<string> noms = NomsObjetsParametre(doc, nsmgr);
+			List<ObjetParametre> objetsParametre = new List<ObjetParametre>();
+			List<string> descriptions = DescriptionsObjetsParametre(doc, nsmgr);
+			List<List<Attribut>> attributs = Attribut.AttributsObjetsParametres(doc, nsmgr);
+			for (int i = 0; i < noms.Count; i++)
+			{
+				objetsParametre.Add(new ObjetParametre(noms[i], descriptions[i],attributs[i]));
 
+			}
+			return objetsParametre;
+
+		}
 
 		#endregion
 
