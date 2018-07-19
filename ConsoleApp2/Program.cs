@@ -71,16 +71,17 @@ namespace ConsoleApp2
 			//}
 
 
-			var sequences =ServiceExterne.ServicesExternes(doc, nsmgr);
-			List<ServiceExterne> resultat = sequences;
-			foreach (ServiceExterne y in resultat)
-			{	
+			var sequences = MethodeServiceExterne.MethodesServicesExternes(doc, nsmgr);
+			List<List<MethodeServiceExterne>> resultat = sequences;
+			foreach (List<MethodeServiceExterne> y in resultat)
+			{
+				Console.WriteLine("nouvelle liste ");
+				foreach (MethodeServiceExterne x in y) {
+					Console.WriteLine("nouvelle methode ");
+					Console.WriteLine(x.ToString());
 
-
-					Console.WriteLine(y.ToString());
-				
+				}
 			}
-
 
 
 

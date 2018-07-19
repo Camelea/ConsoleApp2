@@ -185,7 +185,7 @@ namespace ConsoleApp2.Classes
 
 		#region Services Externes
 		/// <summary>
-		/// Renvoie la liste des informations de parametres entrants des services externes
+		/// Renvoie la liste des informations de parametres sortants des services externes 
 		/// </summary>
 		/// <param name="doc"></param>
 		/// <param name="nsmgr"></param>
@@ -195,30 +195,41 @@ namespace ConsoleApp2.Classes
 			XmlNodeList nodeList2;
 			XmlElement root = doc.DocumentElement;
 			List<List<string>> ListeServicesExternes = new List<List<string>>();
-			List<List<ParametreEntrant>> ListeParametresEntrantsServiceExterne = new List<List<ParametreEntrant>>();
-
+			List<List<ParametreEntrant>> ListeParametresEntrantsServicesExternes = new List<List<ParametreEntrant>>();
+			var x = 0;
 			for (int i = 2; i < ServiceExterne.NombreServicesExternes(doc, nsmgr) + 2; i++)
 			{
 
-				ListeServicesExternes.Add(new List<string>());
-				string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][2]/ following-sibling::w:tbl / w:tr /w:tc [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/ preceding-sibling::w:tbl / w:tr /w:tc)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/preceding-sibling::w:tbl / w:tr /w:tc)]";
-
-
-				nodeList2 = root.SelectNodes(xpath, nsmgr);
-
-
-				foreach (XmlNode isbn2 in nodeList2)
+				for (int cmp = 0; cmp < MethodeServiceExterne.NombreMethodesServicesExternes(doc, nsmgr)[i - 2]; cmp++)
 				{
 
-						ListeServicesExternes[i - 2].Add(isbn2.InnerText);
-					
+					ListeServicesExternes.Add(new List<string>());
+					string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][" + (cmp + 1) + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][2] / following-sibling::w:tbl/w:tr/w:tc  [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "]  /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][" + (cmp + 1) + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][3] / preceding-sibling::w:tbl/w:tr/w:tc)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][" + (cmp + 1) + "]  /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][3] / preceding-sibling::w:tbl/w:tr/w:tc)]";
+
+
+					nodeList2 = root.SelectNodes(xpath, nsmgr);
+
+
+					foreach (XmlNode isbn2 in nodeList2)
+					{
+
+						ListeServicesExternes[x].Add(isbn2.InnerText);
+
+					}
+					ListeParametresEntrantsServicesExternes.Add(ListeAParametresEntrants(ListeServicesExternes[x]));
+					x++;
 				}
-				ListeParametresEntrantsServiceExterne.Add(ListeAParametresEntrants(ListeServicesExternes[i - 2]));
+
+
+
+
 
 			}
-			return ListeParametresEntrantsServiceExterne;
+
+			return ListeParametresEntrantsServicesExternes;
 
 		}
+
 
 		#endregion
 

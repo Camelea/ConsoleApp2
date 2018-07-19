@@ -14,21 +14,15 @@ namespace ConsoleApp2.ServicesExternes
 		#region Attributs
 
 		public string Nom;
-		public string Description;
-		public List<ParametreEntrant> parametreEntrant;
-		public List<ParametreSortant> parametreSortant;
-		public string Algorithme;
+		public List<MethodeServiceExterne> Methodes;
 
 		#endregion
 
 		#region Constructeur
-		public ServiceExterne(string nom, string description, List<ParametreEntrant> parametreEntrant, List<ParametreSortant> parametreSortant, string algorithme)
+		public ServiceExterne(string nom, List<MethodeServiceExterne> methodes)
 		{
 			this.Nom = nom;
-			this.Description = description;
-			this.parametreEntrant = parametreEntrant;
-			this.parametreSortant = parametreSortant;
-			this.Algorithme = algorithme;
+			this.Methodes = methodes;
 
 		}
 		#endregion
@@ -37,7 +31,13 @@ namespace ConsoleApp2.ServicesExternes
 
 		public override string ToString()
 		{
-			return (this.Nom + " " + this.Description + " " + this.Algorithme);
+			var res = "";
+			foreach (MethodeServiceExterne methode in this.Methodes)
+			{
+				res = res + "\n" + methode.ToString();
+			}
+
+			return (this.Nom + " " + res);
 		}
 		/// <summary>
 		/// Retourne une liste de noms des services externes présents dans le fichier
@@ -68,33 +68,7 @@ namespace ConsoleApp2.ServicesExternes
 
 		}
 
-		/// <summary>
-		/// Fonction qui permet de recuperer la liste des descriptions des web methodes
-		/// </summary>
-		/// <param name="doc"></param>
-		/// <param name="nsmgr"></param>
-		/// <returns></returns>
-		public static List<string> DescriptionsWebMethodes(XmlDocument doc, XmlNamespaceManager nsmgr)
-		{
-			XmlNodeList nodeList2;
-			XmlElement root = doc.DocumentElement;
-			List<string> ListeDescriptionsWebMethodes = new List<string>();
-
-			for (int i = 2; i < NombreServicesExternes(doc, nsmgr) + 2; i++)
-
-			{
-				string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][1]/ following-sibling::w:p [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][2]/ preceding-sibling::w:p)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][2]/preceding-sibling::w:p)]";
-
-				nodeList2 = root.SelectNodes(xpath, nsmgr);
-				foreach (XmlNode isbn2 in nodeList2)
-				{
-					ListeDescriptionsWebMethodes.Add(isbn2.InnerText);
-				}
-
-			}
-
-			return ListeDescriptionsWebMethodes;
-		}
+		
 
 		/// <summary>
 		/// Retourne le nombre de services externes dans le fichier
@@ -108,75 +82,7 @@ namespace ConsoleApp2.ServicesExternes
 			return res;
 		}
 
-		/// <summary>
-		/// Fonction qui permet de recuperer la liste des descriptions des services externes 
-		/// </summary>
-		/// <param name="doc"></param>
-		/// <param name="nsmgr"></param>
-		/// <returns></returns>
-		public static List<string> AlgorithmesServicesExternes(XmlDocument doc, XmlNamespaceManager nsmgr)
-		{
-			XmlNodeList nodeList2;
-			XmlElement root = doc.DocumentElement;
-			List<string> ListeAlgorithmesServicesExternes = new List<string>();
-
-			for (int i = 2; i < NombreServicesExternes(doc, nsmgr) + 2; i++)
-
-			{
-				if (i < NombreServicesExternes(doc, nsmgr))
-				{
-					string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][4]/ following-sibling::w:p [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + (i + 1) + "]/ preceding-sibling::w:p)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + (i + 1) + "]/preceding-sibling::w:p)]";
-
-
-					nodeList2 = root.SelectNodes(xpath, nsmgr);
-
-					foreach (XmlNode isbn2 in nodeList2)
-					{
-						ListeAlgorithmesServicesExternes.Add(isbn2.InnerText);
-					}
-				}
-				else
-				{
-
-					string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][4]/ following-sibling::w:p [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][8] / preceding-sibling::w:p)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][8]/preceding-sibling::w:p)]";
-
-
-					nodeList2 = root.SelectNodes(xpath, nsmgr);
-
-					foreach (XmlNode isbn2 in nodeList2)
-					{
-						ListeAlgorithmesServicesExternes.Add(isbn2.InnerText);
-					}
-				}
-
-
-			}
-
-			return ListeAlgorithmesServicesExternes;
-		}
-
-		/// <summary>
-		/// Fonction qui retourne la liste des services externes presents dans le fichier
-		/// </summary>
-		/// <param name="doc"></param>
-		/// <param name="nsmgr"></param>
-		/// <returns></returns>
-		public static List<ServiceExterne> ServicesExternes(XmlDocument doc, XmlNamespaceManager nsmgr)
-		{
-			List<string> noms = NomsServicesExternes(doc, nsmgr);
-			List<ServiceExterne> servicesExternes = new List<ServiceExterne>();
-			List<string> descriptions = DescriptionsWebMethodes(doc, nsmgr);
-			List<string> algorithmes = AlgorithmesServicesExternes(doc, nsmgr);
-			List<List<ParametreEntrant>> parametresEntrants = ParametreEntrant.GetParametresEntrantsServiceExterne(doc, nsmgr);
-			List<List<ParametreSortant>> parametresSortants = ParametreSortant.GetParametresSortantsServiceExterne(doc, nsmgr);
-			for (int i = 0; i < noms.Count; i++)
-			{
-				servicesExternes.Add(new ServiceExterne(noms[i], descriptions[i], parametresEntrants[i], parametresSortants[i], algorithmes[i]));
-
-			}
-			return servicesExternes;
-
-		}
+	
 
 		#endregion
 	}

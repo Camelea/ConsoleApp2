@@ -83,29 +83,40 @@ namespace ConsoleApp2.WebMethodes
 			XmlElement root = doc.DocumentElement;
 			List<List<string>> ListeServicesExternes = new List<List<string>>();
 			List<List<ParametreSortant>> ListeParametresSortantsServicesExternes = new List<List<ParametreSortant>>();
-
+			var x = 0;
 			for (int i = 2; i < ServiceExterne.NombreServicesExternes(doc, nsmgr) + 2; i++)
 			{
+				
+					for (int cmp = 0; cmp < MethodeServiceExterne.NombreMethodesServicesExternes(doc, nsmgr)[i-2]; cmp++)
+					{
 
-				ListeServicesExternes.Add(new List<string>());
-				string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][3]/ following-sibling::w:tbl / w:tr /w:tc [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][4]/ preceding-sibling::w:tbl / w:tr /w:tc)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][4]/preceding-sibling::w:tbl / w:tr /w:tc)]";
+						ListeServicesExternes.Add(new List<string>());
+						string xpath = @"// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][" + (cmp + 1) + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][3] / following-sibling::w:tbl/w:tr/w:tc  [count(. | // w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "]  /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][" + (cmp + 1) + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][4] / preceding-sibling::w:tbl/w:tr/w:tc)= count(// w:p [ w:pPr / w:pStyle [@w:val='Heading1']][7] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading2']][" + i + "] /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading3']][" + (cmp + 1) + "]  /following:: w:p [ w:pPr / w:pStyle [@w:val='Heading4']][4] / preceding-sibling::w:tbl/w:tr/w:tc)]";
 
 
-				nodeList2 = root.SelectNodes(xpath, nsmgr);
+						nodeList2 = root.SelectNodes(xpath, nsmgr);
 
 
-				foreach (XmlNode isbn2 in nodeList2)
-				{
+					foreach (XmlNode isbn2 in nodeList2)
+					{
 
-					ListeServicesExternes[(i - 1)].Add(isbn2.InnerText.Trim());
+						ListeServicesExternes[x].Add(isbn2.InnerText);
+
+						}
+						ListeParametresSortantsServicesExternes.Add(ListeAParametresSortants(ListeServicesExternes[x]));
+					x++;
+					}
+					
+
+				
+
+					
+				}
+			
+					return ListeParametresSortantsServicesExternes;
 
 				}
-				ListeParametresSortantsServicesExternes.Add(ListeAParametresSortants(ListeServicesExternes[(i - 1)]));
-
-			}
-			return ListeParametresSortantsServicesExternes;
-
-		}
+			
 
 
 		#endregion

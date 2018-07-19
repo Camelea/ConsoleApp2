@@ -63,6 +63,7 @@
     <Compile Include="ParametreEntrant.cs" />
     <Compile Include="Classes\ProprieteDynamique.cs" />
     <Compile Include="Classes\TypeRetour.cs" />
+    <Compile Include="ServicesExternes\MethodeServiceExterne.cs" />
     <Compile Include="ServicesExternes\ServiceExterne.cs" />
     <Compile Include="Tables\Donnes.cs" />
     <Compile Include="Program.cs" />
